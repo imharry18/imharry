@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-// You can place this SVG component in its own file or keep it here.
+// 1. Import the image file like a module.
+// Make sure the path is correct relative to this Navbar.jsx file.
+import signatureLogo from '../assets/darkTransLogo.png';
+
+// This component now uses the imported image.
 const SignatureLogo = () => (
-    <svg className="w-24 h-auto" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.5 25.5C2.5 25.5 10.5 4.5 25 25.5C39.5 46.5 42.5 15.5 57.5 25.5C72.5 35.5 75.5 4.5 97.5 25.5" stroke="#1F2937" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
+    <img 
+        src={signatureLogo} 
+        alt="Signature Logo" 
+        className="w-24 h-auto"
+    />
 );
+
 
 const Navbar = () => {
     // State to manage if the navbar has been scrolled
