@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div >
       <Navbar />
-      <main>
+      <main className='mt-16'>
         <Home />
       </main>
     </div>
