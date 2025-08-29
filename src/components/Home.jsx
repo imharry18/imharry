@@ -1,11 +1,9 @@
 import React from "react";
-import dpimage from "../assets/dpimage.jpg";
 import sideImage from "../assets/123.png";
-import logoTrans from "../assets/logoTrans.png";  // Import the logoTrans.png
+import logoTrans from "../assets/logoTrans.png";
 import LightRays from './ui/LightRays.jsx';
 import Orb from './ui/Orb.jsx';
 "use client";
-import { SparklesCore } from "./ui/Sparkles.jsx";
 
 const Home = () => {
   return (
@@ -51,23 +49,23 @@ const Home = () => {
         alt="Background Logo"
         style={{
           position: 'absolute',
-          top: '50%',               // center vertically (adjust if needed)
-          left: '50%',              // center horizontally
+          top: '50%',
+          left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '100vw',           // full viewport width
+          width: '100vw',
           height: 'auto',
-          opacity: 0.1,             // subtle transparency, adjust as needed
+          opacity: 0.1,
           pointerEvents: 'none',
-          zIndex: 2,                // below the image container zIndex (10)
+          zIndex: 2,
           userSelect: 'none',
-          objectFit: 'contain',     // preserve aspect ratio
+          objectFit: 'contain',
           maxHeight: '80vh',
-          paddingLeft: '30px',        // prevent it from getting too tall
-          paddingRight: '30px'        // prevent it from getting too tall
+          paddingLeft: '30px',
+          paddingRight: '30px'
         }}
       />
 
-      <div className=" relative bg-opacity-70 rounded-lg max-w-8xl w-full mt-16 justify-center flex gap-20 flex-wrap z-10">
+      <div className="relative bg-opacity-70 rounded-lg max-w-8xl w-full mt-16 justify-center flex gap-20 flex-wrap z-10">
         {/* Center Image */}
         <div
           className="flex-2 mt-5 min-w-[280px] flex items-center justify-center relative"
@@ -77,15 +75,28 @@ const Home = () => {
             maxWidth: '600px',
           }}
         >
-          {/* Main Image */}
           <img
             src={sideImage}
             alt="Harry"
             className="rounded-lg shadow-lg object-cover max-w-full max-h-[600px] w-auto relative"
-            style={{ zIndex: 10,
-            opacity: 0.9 }}
+            style={{ zIndex: 10, opacity: 0.9 }}
           />
         </div>
+      </div>
+      
+      {/* Overlaid Text Content */}
+      <div className="absolute bottom-16 left-16 top-80 text-white p-6 rounded-lg max-w-8xl" style={{ zIndex: 11 }}>
+        <p className="font-orbitron text-cyan-400 font-semibold tracking-wider mb-4 text-lg">I'm HARRY</p>
+        <h1 className="font-orbitron text-6xl md:text-7xl font-bold leading-tight">
+          CS Engineer
+          <div className="mt-2 text-cyan-400 text-5xl">Competitive Programmer</div>
+        </h1>
+        <p className="mt-6 text-gray-400 max-w-lg">
+          Web-Developer | Problem-Solver | Data-Analyst | AI-ML 
+        </p>
+        <p className="text-gray-400 italic max-w-2xl">
+          "I'm Harry, bringing ideas to life through clean and efficient code. I'm passionate about making everything simple and effective, turning complex problems into elegant solutions."
+        </p>
       </div>
     </div>
   );
