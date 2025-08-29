@@ -71,8 +71,9 @@ const Navbar = () => {
             <a 
               href="#contact"
               onClick={() => setActiveLink('Contact')}
-              className="hidden md:inline-block bg-white text-black font-semibold px-5 py-2 rounded-xl
-                         transition-transform transform hover:scale-95"
+              className="hidden md:inline-block bg-white text-black font-semibold px-5 py-1.5 rounded-xl
+                        transition-transform transform hover:scale-95 hover:bg-white/5 
+                        content-box border-2 border-transparent hover:border-white hover:text-white"
             >
               Contact Me
             </a>
@@ -121,15 +122,18 @@ const Navbar = () => {
 
         {/* Mobile Contact Button */}
         <a 
-          href="#contact"
-          onClick={() => {
-            setActiveLink('Contact');
-            closeMenu();
-          }}
-          className="bg-white text-black font-semibold px-8 py-3 rounded-full transition-transform transform hover:scale-95"
-        >
-          Contact Me
-        </a>
+  href="#contact"
+  onClick={() => {
+    setActiveLink('Contact');
+    closeMenu();
+  }}
+  className="bg-white text-black font-semibold px-8 py-3 rounded-full 
+             transition-transform transform hover:scale-95 
+             border-2 border-transparent hover:bg-white/5 hover:border-2 hover:text-white"
+>
+  Contact Me
+</a>
+
       </div>
     </>
   );
