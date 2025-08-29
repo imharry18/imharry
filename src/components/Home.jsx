@@ -1,9 +1,12 @@
 import React from "react";
 import dpimage from "../assets/dpimage.jpg";
+import sideImage from "../assets/123.png";
+import logoTrans from "../assets/logoTrans.png";  // Import the logoTrans.png
 import LightRays from './ui/LightRays.jsx';
 import Orb from './ui/Orb.jsx';
 "use client";
 import { SparklesCore } from "./ui/Sparkles.jsx";
+
 const Home = () => {
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
@@ -42,45 +45,45 @@ const Home = () => {
         />
       </div>
 
-      <div className="relative bg-opacity-70 rounded-lg p-6 max-w-8xl w-full mx-10 mt-16 my-12 flex gap-12 flex-wrap z-10">
-        <div className="flex-1 min-w-[280px] flex flex-col justify-center text-white">
-          <div className="h-[40rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <h1 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20">
-        I'm Harry
-      </h1>
-      <div className="relative w-[40rem] h-40 bg-transparent">
-  {/* Decorative gradients (optional) */}
-  <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-  <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-  <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-  <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+      {/* Full width logoTrans as background */}
+      <img
+        src={logoTrans}
+        alt="Background Logo"
+        style={{
+          position: 'absolute',
+          top: '50%',               // center vertically (adjust if needed)
+          left: '50%',              // center horizontally
+          transform: 'translate(-50%, -50%)',
+          width: '100vw',           // full viewport width
+          height: 'auto',
+          opacity: 0.1,             // subtle transparency, adjust as needed
+          pointerEvents: 'none',
+          zIndex: 2,                // below the image container zIndex (10)
+          userSelect: 'none',
+          objectFit: 'contain',     // preserve aspect ratio
+          maxHeight: '80vh',
+          paddingLeft: '30px',        // prevent it from getting too tall
+          paddingRight: '30px'        // prevent it from getting too tall
+        }}
+      />
 
-  {/* Sparkles Component */}
-  <SparklesCore
-    background="transparent"
-    minSize={0.4}
-    maxSize={1}
-    particleDensity={1200}
-    className="w-full h-full"
-    particleColor="#ffffff"
-  />
-
-  {/* Optional radial mask gradient */}
-  <div className="absolute inset-0 w-full h-full bg-transparent [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
-</div>
-
-    </div>
-          <p className="text-lg leading-relaxed mb-6">
-            I'm Harry, a passionate Brand Identity & Package Designer based in Tokyo. I specialize in crafting bold visual identities and packaging that captivate and inspire, blending creativity with strategy to elevate brands.
-          </p>
-        </div>
-
-        {/* Right Side - Image (increased size) */}
-        <div className="flex-1 min-w-[280px] flex items-center justify-center">
+      <div className=" relative bg-opacity-70 rounded-lg max-w-8xl w-full mt-16 justify-center flex gap-20 flex-wrap z-10">
+        {/* Center Image */}
+        <div
+          className="flex-2 mt-5 min-w-[280px] flex items-center justify-center relative"
+          style={{ 
+            position: 'relative',
+            width: 'auto', 
+            maxWidth: '600px',
+          }}
+        >
+          {/* Main Image */}
           <img
-            src={dpimage}
+            src={sideImage}
             alt="Harry"
-            className="rounded-lg shadow-lg object-cover max-w-full max-h-[600px] w-auto"
+            className="rounded-lg shadow-lg object-cover max-w-full max-h-[600px] w-auto relative"
+            style={{ zIndex: 10,
+            opacity: 0.9 }}
           />
         </div>
       </div>
