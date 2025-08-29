@@ -9,7 +9,7 @@ import { cn } from "../../lib/utils"; // ✅ Removed `.ts`
 export const SparklesCore = ({
   id,
   className,
-  background = "transparent", // ✅ Background is transparent
+  background = "#0C0C0E", // ✅ Background is transparent
   minSize = 1,
   maxSize = 3,
   speed = 4,
