@@ -7,13 +7,9 @@ import Orb from './ui/Orb.jsx';
 
 const Home = () => {
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-      {/* LightRays background - bottom layer */}
-      <div style={{ 
-        position: 'absolute', 
-        top: 0, left: 0, right: 0, bottom: 0, 
-        zIndex: 0 
-      }}>
+    <div className="relative mt-0 xl:mt-10 lg:mt-10 w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 z-0">
         <LightRays
           raysOrigin="top-center"
           raysColor="#3d3d3d"
@@ -24,79 +20,52 @@ const Home = () => {
           mouseInfluence={0.1}
           noiseAmount={0}
           distortion={0.0}
-          className="custom-rays"
         />
       </div>
-
-      <div style={{
-        position: 'absolute',
-        top: 30, left: 0, right: 0, bottom: 0,
-        zIndex: 1,            
-        pointerEvents: 'none',
-        opacity: 0.3,         
-      }}>
+      <div className="absolute inset-0 z-1 opacity-20 pointer-events-none">
         <Orb
-          hoverIntensity={0.5}
+          hoverIntensity={0.2}
           rotateOnHover={true}
           hue={0}
           forceHoverState={false}
         />
       </div>
-
-      {/* Full width logoTrans as background */}
       <img
         src={logoTrans}
         alt="Background Logo"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '100vw',
-          height: 'auto',
-          opacity: 0.1,
-          pointerEvents: 'none',
-          zIndex: 2,
-          userSelect: 'none',
-          objectFit: 'contain',
-          maxHeight: '80vh',
-          paddingLeft: '30px',
-          paddingRight: '30px'
-        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-h-[80vh] object-contain p-[30px] opacity-10 pointer-events-none select-none z-2"
       />
 
-      <div className="relative bg-opacity-70 rounded-lg max-w-8xl w-full mt-16 justify-center flex gap-20 flex-wrap z-10">
-        {/* Center Image */}
-        <div
-          className="flex-2 mt-5 min-w-[280px] flex items-center justify-center relative"
-          style={{ 
-            position: 'relative',
-            width: 'auto', 
-            maxWidth: '600px',
-          }}
-        >
+      {/* Main Content Container for layout */}
+      <div className="relative w-full flex flex-col lg:flex-row items-center justify-center min-h-screen px-4 pt-20 lg:pt-0">
+        
+        {/* Centered Image */}
+        <div className="relative flex-shrink-0" style={{ zIndex: 10 }}>
           <img
             src={sideImage}
             alt="Harry"
-            className="rounded-lg shadow-lg object-cover max-w-full max-h-[600px] w-auto relative"
-            style={{ zIndex: 10, opacity: 0.9 }}
+            className="rounded-lg shadow-lg object-cover max-w-[70vw] md:max-w-[500px] lg:max-w-[600px] max-h-[80vh] lg:max-h-[600px] w-auto opacity-90"
           />
         </div>
-      </div>
-      
-      {/* Overlaid Text Content */}
-      <div className="absolute bottom-16 left-16 top-80 text-white p-6 rounded-lg max-w-8xl" style={{ zIndex: 11 }}>
-        <p className="font-orbitron text-cyan-400 font-semibold tracking-wider mb-4 text-lg">I'm HARRY</p>
-        <h1 className="font-orbitron text-6xl md:text-7xl font-bold leading-tight">
-          CS Engineer
-          <div className="mt-2 text-cyan-400 text-5xl">Competitive Programmer</div>
-        </h1>
-        <p className="mt-6 text-gray-400 max-w-lg">
-          Web-Developer | Problem-Solver | Data-Analyst | AI-ML 
-        </p>
-        <p className="text-gray-400 italic max-w-2xl">
-          "I'm Harry, bringing ideas to life through clean and efficient code. I'm passionate about making everything simple and effective, turning complex problems into elegant solutions."
-        </p>
+
+        {/* Text Content */}
+        {/* Adjusted with negative margin-top for mobile view to bring it closer to the image */}
+        <div 
+          className="relative lg:absolute bottom-0 lg:bottom-20 lg:left-16 w-full lg:w-auto text-center lg:text-left p-6 rounded-lg text-white max-w-2xl -mt-28 md:-mt-16 lg:mt-0" 
+          style={{ zIndex: 11 }}
+        >
+          <p className="font-orbitron text-cyan-400 font-semibold tracking-wider mb-2 text-md lg:text-lg">I'm HARRY</p>
+          <h1 className="font-orbitron text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight">
+            CS Engineer
+            <div className="mt-2 text-cyan-400 text-3xl lg:text-4xl">Competitive Programmer</div>
+          </h1>
+          <p className="mt-4 text-gray-400 max-w-lg mx-auto lg:mx-0 text-sm sm:text-base">
+            Web-Developer | Problem-Solver | Data-Analyst | AI-ML 
+          </p>
+          <p className="mt-4 text-gray-400 italic max-w-2xl mx-auto lg:mx-0 text-xs sm:text-sm">
+            "I'm Harry, bringing ideas to life through clean and efficient code. I'm passionate about making everything simple and effective, turning complex problems into elegant solutions."
+          </p>
+        </div>
       </div>
     </div>
   );
