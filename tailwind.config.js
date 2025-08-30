@@ -9,6 +9,7 @@ export default {
     extend: { 
       fontFamily: {
         orbitron: ['"Orbitron"', 'sans-serif'],
+        syne: ['Syne', 'sans-serif'],
       },
     },
   },

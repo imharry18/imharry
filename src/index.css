@@ -9,3 +9,11 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* In your index.css or App.css */
+
+.font-syne {
+  font-family: 'Syne', sans-serif;
+  /* You can add other font-specific properties here if needed, like font-weight */
+  /* font-weight: 700; */
+}
