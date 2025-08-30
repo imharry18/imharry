@@ -56,7 +56,7 @@ const content = [
 
 const CurveText = () => {
   return (
-    <div className=' h-[90vh] py-10 space-y-4'>
+    <div className=' py-10 space-y-4'>
       <CurvedLoop
         marqueeText="Harry ✦ Competitive Programmer ✦ Data Structures ✦ LeetCode ✦ GitHub ✦ Graphics Designing ✦ Adobe Photoshop ✦ Java ✦ Python ✦ GeeksforGeeks ✦"
         textColor="white"
