@@ -1,8 +1,8 @@
 import CurvedLoop from './ui/CurvedLoop.jsx';
 "use client";
 import { WobbleCard } from './ui/Wobble-Card.jsx';
-import leetCodeImage from '../assets/leetCode.png'
-
+import gitImage from "../assets/Git.png";
+import codolioImage from "../assets/Codolio.png";
 const content = [
   {
     title: "Collaborative Editing",
@@ -73,45 +73,45 @@ const CurveText = () => {
   >
     <div className="max-w-xs">
       <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-        Gippity AI powers the entire universe
+        Building with Code & Creativity
       </h2>
       <p className="mt-4 text-left text-base/6 text-neutral-200">
-        With over 100,000 monthly active bot users, Gippity AI is the most popular AI platform for developers.
+        From scalable apps to smart solutions and projects — I love turning complex ideas into clean, working software.
       </p>
     </div>
     <img
-      src={leetCodeImage}
+      src={gitImage}
       width={500}
       height={500}
       alt="linear demo image"
-      className="absolute -right-4 lg:-right-[40%] -bottom-10 object-contain rounded-2xl grayscale filter"
+      className="absolute -right-[20%] md:-right-[30%] xl:-right-[20%] -bottom-10 object-contain rounded-2xl filter"
     />
   </WobbleCard>
 
   <WobbleCard containerClassName="col-span-1 min-h-[300px] relative">
     <h2 className="max-w-80 text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-      No shirt, no shoes, no weapons.
+      Problem Solving on LeetCode
     </h2>
     <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-      If someone yells “stop!”, goes limp, or taps out, the fight is over.
+      Sharpening my skills daily with algorithms and data structures to write efficient and elegant solutions.
     </p>
   </WobbleCard>
 
   <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px] relative">
     <div className="max-w-sm">
       <h2 className="max-w-sm md:max-w-lg text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-        Signup for blazing-fast cutting-edge state of the art Gippity AI wrapper today!
+        Always Learning. Always Building.
       </h2>
       <p className="mt-4 max-w-[26rem] text-left text-base/6 text-neutral-200">
-        With over 100,000 monthly active bot users, Gippity AI is the most popular AI platform for developers.
+        I have solved <b className='text-xl'>500+</b> Problems on DSA & CP and Exploring new technologies, improving my craft, and building impactful projects that solve real problems.
       </p>
     </div>
     <img
-      src="/linear.webp"
-      width={500}
-      height={500}
+      src={codolioImage}
+      width={600}
+      height={600}
       alt="linear demo image"
-      className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl"
+      className="absolute -right-8 md:-right-[20%] lg:-right-[10%] -bottom-10 object-contain rounded-2xl"
     />
   </WobbleCard>
 </div>
