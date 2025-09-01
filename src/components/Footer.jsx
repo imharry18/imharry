@@ -69,14 +69,14 @@ const Footer = () => {
       </div>
 
       {/* Image Container: Positioned below the content, as you intended */}
-      <div className="container mx-auto mt-24">
+      <div className="container mx-auto mt-28">
         <div className="flex items-center justify-center">
             <img
               src={logoTrans}
               alt="Background Logo"
               className="object-contain w-full max-w-4xl pointer-events-none select-none"
               style={{
-                maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.2))',
+                maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.05))',
                 WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.2))',
                 maskRepeat: 'no-repeat',
                 WebkitMaskRepeat: 'no-repeat',

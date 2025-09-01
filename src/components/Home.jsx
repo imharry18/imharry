@@ -13,22 +13,17 @@ const Home = () => {
         <LightRays
           raysOrigin="top-center"
           raysColor="#3d3d3d"
-          raysSpeed={5}
-          lightSpread={10}
-          rayLength={5}
-          followMouse={true}
-          mouseInfluence={0.1}
+          raysSpeed={0.5}
+          lightSpread={1}
+          rayLength={3}
+          followMouse={false}
+          mouseInfluence={0}
           noiseAmount={0}
           distortion={0.0}
         />
       </div>
       <div className="absolute inset-0 z-1 opacity-20 pointer-events-none">
-        <Orb
-          hoverIntensity={0.2}
-          rotateOnHover={true}
-          hue={0}
-          forceHoverState={false}
-        />
+
       </div>
       <img
         src={logoTrans}
