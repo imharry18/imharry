@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Navbar from './components/Navbar.jsx';
 import Home from './components/Home.jsx';
-import CurveText from './components/CurveText.jsx';
+import CurveTextPage from './components/CurveTextPage.jsx';
 import Footer from "./components/Footer.jsx";
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
       <Navbar />
       <main className="pt-18 text-white" ref={containerRef}>
           <Home />
-          <CurveText />
+          <CurveTextPage />
       </main>
       <Footer />
     </div>
