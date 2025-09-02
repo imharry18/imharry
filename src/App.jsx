@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.jsx';
 import Home from './components/Home.jsx';
 import CurveTextPage from './components/CurveTextPage.jsx';
 import Footer from "./components/Footer.jsx";
+import HomeSection3 from "./components/HomeSection3.jsx";
 
 export default function App() {
   const containerRef = useRef(null);
@@ -13,6 +14,7 @@ export default function App() {
       <main className="pt-18 text-white" ref={containerRef}>
           <Home />
           <CurveTextPage />
+          <HomeSection3 />
       </main>
       <Footer />
     </div>

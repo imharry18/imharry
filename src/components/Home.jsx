@@ -7,7 +7,7 @@ import Orb from './ui/Orb.jsx';
 
 const Home = () => {
   return (
-    <div className="relative mt-0 xl:mt-10 lg:mt-10 w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <div className="bg-[#111111] relative mt-0 xl:mt-10 lg:mt-10 w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <LightRays
@@ -23,7 +23,12 @@ const Home = () => {
         />
       </div>
       <div className="absolute inset-0 z-1 opacity-20 pointer-events-none">
-
+        <Orb
+          hoverIntensity={0.2}
+          rotateOnHover={true}
+          hue={0}
+          forceHoverState={false}
+        />
       </div>
       <img
         src={logoTrans}
