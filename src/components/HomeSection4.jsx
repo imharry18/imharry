@@ -5,46 +5,46 @@ import { StickyScroll } from "./ui/sticky-scroll-reveal";
 
 const content = [
   {
-    title: "Collaborative Editing",
+    title: "Clean & Scalable Code",
     description:
-      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
+      "I believe in writing code that is simple, modular, and scalable. Clean code is not just about solving problems, but solving them in a way that future developers (including myself) can easily maintain and extend.",
     content: (
       <div className="flex items-center justify-center h-full w-full bg-gradient-to-br from-cyan-500 to-emerald-500 text-white text-2xl md:text-4xl font-bold rounded-2xl">
-        Collaborative Editing
+        Clean & Scalable Code
       </div>
     ),
   },
   {
-    title: "Real time changes",
+    title: "Real-time Collaboration",
     description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
+      "As a developer, I value teamwork and open communication. I’ve worked on projects where ideas evolve in real time, and collaboration drives innovation. Pair programming, Git workflows, and code reviews are part of my daily coding life.",
     content: (
       <div className="flex items-center justify-center h-full w-full rounded-2xl">
         <img
           src="/linear.webp"
           className="h-full w-full object-cover rounded-2xl"
-          alt="linear board demo"
+          alt="collaboration demo"
         />
       </div>
     ),
   },
   {
-    title: "Version control",
+    title: "Version Control Mastery",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Git is my second language. From branching strategies to pull requests and CI/CD pipelines, I ensure every project is well-managed and every change is tracked. Version control is not just a tool, it’s a mindset.",
     content: (
       <div className="flex items-center justify-center h-full w-full bg-gradient-to-br from-orange-500 to-yellow-500 text-white text-2xl md:text-4xl font-bold rounded-2xl">
-        Version control
+        Version Control Mastery
       </div>
     ),
   },
   {
-    title: "Running out of content",
+    title: "Passion for Learning",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Technology evolves every day, and so do I. Whether it’s exploring new frameworks, building side projects, or diving into open source, I never stop learning. For me, coding is not just work—it’s a lifelong passion.",
     content: (
       <div className="flex items-center justify-center h-full w-full bg-gradient-to-br from-cyan-500 to-emerald-500 text-white text-2xl md:text-4xl font-bold rounded-2xl">
-        Running out of content
+        Passion for Learning
       </div>
     ),
   },
