@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import skillsData from "../data/skills.json";
 import { StarsBackground } from "./ui/stars-background";
 import { ShootingStars } from "./ui/shooting-stars";
-import SkillCard from "./SkillCard.jsx"; // Assuming you keep SkillCard as a separate file, otherwise inline
+import SkillCard from "./SkillCard.jsx";
 
 const HomeSection3 = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+
   const allCategories = ["All", ...new Set(skillsData.map(skill => skill.category))];
-  const filteredSkills = skillsData.filter(skill =>
-    activeCategory === "All" || skill.category === activeCategory
-  );
+
+  const filteredSkills = skillsData.filter(skill => {
+    if (activeCategory === "All") {
+      return skill.tag === "ShowCase";
+    }
+    return skill.category === activeCategory;
+  });
 
   return (
     <div className='relative min-h-screen bg-gradient-to-b from-[#0f0f0f] to-[#111111] text-white p-5 md:p-20 flex flex-col items-center font-sans overflow-hidden'>

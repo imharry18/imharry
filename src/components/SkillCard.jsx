@@ -4,16 +4,20 @@ import { CanvasRevealEffect } from "./ui/canvas-reveal-effect";
 const SkillCard = ({ skill }) => {
   const [hovered, setHovered] = useState(false);
 
+  // Gradient using Tailwind color classes for shimmer AND fallback CSS gradient for mastery bar
+  const gradientBarStyle = {
+    width: `${skill.mastery}%`,
+    background: `linear-gradient(to right, #3b82f6, #06b6d4)` // blue-500 to cyan-500
+  };
+
   return (
     <div
       className="relative py-2 px-3 cursor-pointer bg-[#1a1a1a]/90 backdrop-blur-8xl rounded-3xl shadow-2xl flex items-center space-x-6 transition-transform duration-300 overflow-hidden"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Render CanvasRevealEffect only on hover  */}
       {hovered && (
         <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
-          {/* Pass the color as RGB array */}
           <CanvasRevealEffect animationSpeed={5} colors={[skill.colorRGB]} containerClassName="h-full w-full" />
         </div>
       )}
@@ -27,8 +31,8 @@ const SkillCard = ({ skill }) => {
         <p className='text-sm italic text-gray-400'>{skill.category}</p>
         <div className='w-full bg-gray-700 rounded-full h-1 mt-1 mb-1'>
           <div
-            className={`bg-gradient-to-r ${skill.color} h-full rounded-full transition-all duration-500 ease-out`}
-            style={{ width: `${skill.mastery}%` }}
+            className="h-full rounded-full transition-all duration-500 ease-out"
+            style={gradientBarStyle}
           ></div>
         </div>
         <p className='text-xs md:text-sm text-gray-300'>{skill.mastery}% Mastery</p>
@@ -36,4 +40,5 @@ const SkillCard = ({ skill }) => {
     </div>
   );
 };
+
 export default SkillCard;

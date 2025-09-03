@@ -4,6 +4,7 @@ import Home from './components/Home.jsx';
 import CurveTextPage from './components/CurveTextPage.jsx';
 import Footer from "./components/Footer.jsx";
 import HomeSection3 from "./components/HomeSection3.jsx";
+import HomeSection4 from "./components/HomeSection4.jsx";
 
 export default function App() {
   const containerRef = useRef(null);
@@ -15,6 +16,7 @@ export default function App() {
           <Home />
           <CurveTextPage />
           <HomeSection3 />
+          <HomeSection4 />
       </main>
       <Footer />
     </div>
