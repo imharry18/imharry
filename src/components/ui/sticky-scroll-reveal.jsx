@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { useScroll, useMotionValueEvent, motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import {
+  useScroll,
+  useMotionValueEvent,
+  motion,
+  AnimatePresence,
+} from "framer-motion";
 import { cn } from "../../lib/utils";
 
 export const StickyScroll = ({ content, contentClassName }) => {
@@ -9,102 +14,135 @@ export const StickyScroll = ({ content, contentClassName }) => {
   const ref = useRef(null);
   const cardLength = content.length;
 
-  // Set up scroll detection
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  // States for gradient BG
+  // Corrected gradients array to match all content items + start/end screens.
+  // Original had 5 items for 4 content cards, now it has 6.
   const gradients = [
-    "#111111", // Solid dark at the start
-    "linear-gradient(to bottom right, #06b6d4, #10b981)", // cyan to emerald
-    "linear-gradient(to bottom right, #ec4899, #6366f1)", // pink to indigo
-    "linear-gradient(to bottom right, #f97316, #eab308)", // orange to yellow
-    "#111111" // Solid dark at the end
+    "#111111", // 0: Solid dark for "Welcome"
+    "linear-gradient(to bottom right, #06b6d4, #10b981)", // 1: For content[0]
+    "linear-gradient(to bottom right, #ec4899, #6366f1)", // 2: For content[1]
+    "linear-gradient(to bottom right, #f97316, #eab308)", // 3: For content[2]
+    "linear-gradient(to bottom right, #06b6d4, #10b981)", // 4: For content[3]
+    "#111111", // 5: Solid dark for "That's All!"
   ];
 
-  // Determine gradient vs solid color based on scroll position/card
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // This calculation determines which card is active based on scroll progress.
+    // It divides the scroll progress into sections for each card + the end screen.
     const sectionProgress = latest * (cardLength + 1);
-    const currentIndex = Math.min(cardLength + 1, Math.floor(sectionProgress));
+    const currentIndex = Math.min(
+      cardLength + 1, // The max index is cardLength + 1 (e.g., 5 for 4 cards)
+      Math.floor(sectionProgress)
+    );
     setActiveCard(currentIndex);
   });
 
-  useEffect(() => {
-    // Force updates and background transitions as activeCard changes
-  }, [activeCard]);
+  // Animation variants for a subtle fade and slide effect
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+  };
 
-  // Card display logic: carousel + start/end overlays
+  const contentVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
+    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.4 } },
+  };
+
+  // The total height of the scrollable section is dynamically set
+  // based on the number of content items.
+  const scrollableHeight = `${100 + cardLength * 100}vh`;
+
   return (
-    <section ref={ref} className="relative h-[500vh] w-full bg-[#111111]">
-      {/* Sticky container */}
+    <section ref={ref} className="relative w-full bg-[#111111]" style={{ height: scrollableHeight }}>
+      {/* Sticky container that holds the content */}
       <motion.div
-        className="sticky top-0 flex h-screen w-full items-center justify-center z-10"
+        className="sticky top-0 z-10 flex h-screen w-full items-center justify-center"
         animate={{
-          background:
-            gradients[activeCard] ||
-            gradients[gradients.length - 1], // fallback to last solid color
+          background: gradients[activeCard] || gradients[gradients.length - 1],
         }}
+        transition={{ duration: 0.5, ease: "easeInOut" }} // Smooth background transition
       >
-        <div className="flex w-full max-w-7xl flex-col lg:flex-row items-center justify-between px-6 md:px-12">
-          {/* Left: text */}
-          <div className="flex-1 space-y-6 overflow-hidden">
-            {activeCard === 0 ? (
-              <div className="flex flex-col items-start justify-center h-full opacity-100 transition-opacity duration-500">
-                <h2 className="text-2xl md:text-4xl font-bold text-white">Welcome</h2>
-                <p className="mt-4 text-base md:text-lg text-gray-200 max-w-md">
-                  Scroll down to discover cool collaborative features of our platform!
-                </p>
-              </div>
-            ) : activeCard === gradients.length - 1 ? (
-              <div className="flex flex-col items-start justify-center h-full opacity-100 transition-opacity duration-500">
-                <h2 className="text-2xl md:text-4xl font-bold text-white">That's All!</h2>
-                <p className="mt-4 text-base md:text-lg text-gray-200 max-w-md">
-                  Continue scrolling to explore the rest of the site.
-                </p>
-              </div>
-            ) : (
-              content.map((item, index) => (
-                <div
-                  key={item.title + index}
-                  className={cn(
-                    "transition-opacity duration-500 absolute left-0 top-0 w-full",
-                    activeCard - 1 === index ? "opacity-100 relative" : "opacity-0 pointer-events-none"
-                  )}
-                  style={{ minHeight: "360px" }}
+        <div className="flex w-full max-w-7xl flex-col items-center justify-between px-6 lg:flex-row md:px-12">
+          {/* Left: Animated text content */}
+          <div className="relative flex-1 space-y-6 overflow-hidden" style={{ minHeight: "250px" }}>
+            <AnimatePresence mode="wait">
+              {activeCard === 0 ? (
+                <motion.div
+                  key="welcome"
+                  variants={textVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                 >
-                  <h2 className="text-2xl md:text-4xl font-bold text-white">
-                    {item.title}
-                  </h2>
-                  <p className="mt-4 text-base md:text-lg text-gray-200 max-w-md">
-                    {item.description}
+                  <h2 className="text-2xl font-bold text-white md:text-4xl">Welcome</h2>
+                  <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">
+                    Scroll down to discover cool collaborative features of our platform!
                   </p>
-                </div>
-              ))
-            )}
+                </motion.div>
+              ) : activeCard === gradients.length - 1 ? (
+                <motion.div
+                  key="thats-all"
+                  variants={textVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  <h2 className="text-2xl font-bold text-white md:text-4xl">That's All!</h2>
+                  <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">
+                    Continue scrolling to explore the rest of the site.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div
+                  // The key is crucial for AnimatePresence to track each item individually
+                  key={content[activeCard - 1].title}
+                  variants={textVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  <h2 className="text-2xl font-bold text-white md:text-4xl">
+                    {content[activeCard - 1].title}
+                  </h2>
+                  <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">
+                    {content[activeCard - 1].description}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          {/* Right: sticky preview card */}
+
+          {/* Right: Animated preview card */}
           <div
-            style={{
-              background:
-                activeCard === 0 || activeCard === gradients.length - 1
-                  ? "#111111"
-                  : gradients[activeCard],
-            }}
             className={cn(
-              "mt-10 lg:mt-0 lg:ml-16 h-72 w-full lg:h-[500px] lg:w-[500px] flex items-center justify-center overflow-hidden rounded-2xl shadow-xl",
+              "mt-10 flex h-72 w-full items-center justify-center overflow-hidden rounded-2xl shadow-xl lg:mt-0 lg:ml-16 lg:h-[500px] lg:w-[500px]",
               contentClassName
             )}
           >
-            {activeCard > 0 && activeCard < gradients.length - 1
-              ? content[activeCard - 1].content
-              : (
-                <div className="flex items-center justify-center w-full h-full text-gray-400 text-2xl font-medium">
-                  {activeCard === 0 ? "Sticky Carousel Demo" : "End of Carousel"}
-                </div>
-              )
-            }
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCard} // Key by the activeCard index to trigger transitions
+                variants={contentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="h-full w-full"
+              >
+                {activeCard > 0 && activeCard < gradients.length - 1 ? (
+                  content[activeCard - 1].content
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#111111] text-2xl font-medium text-gray-400">
+                    {activeCard === 0 ? "Sticky Carousel Demo" : "End of Carousel"}
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </motion.div>
