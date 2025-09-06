@@ -47,7 +47,6 @@ export default function ContactForm() {
             </LabelInputContainer>
           </div>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="email">Email Address</Label>
             <Input
               id="email"
               placeholder="imharry@example.com"
