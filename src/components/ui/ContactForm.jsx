@@ -7,8 +7,6 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
-    console.log("Selected file:", selectedFile ? selectedFile.name : "None");
     alert("Thank you for your message! (Demo Submission)");
   };
 
@@ -19,85 +17,80 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-2xl rounded-3xl md:rounded-4xl overflow-hidden">
+    <div className="relative mx-auto w-full max-w-2xl rounded-none md:rounded-2xl overflow-hidden">
       {/* Animated vortex background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <VortexUse />
       </div>
 
-      {/* Modern Glassy Contact Form Card */}
+      {/* Contact Form Container */}
       <div
-        className="relative z-10 border border-neutral-800/60 bg-neutral-950/70 shadow-[0_8px_24px_0_rgba(0,0,0,0.25)] backdrop-blur-md rounded-2xl md:rounded-3xl"
+        className="relative z-10 bg-neutral-950/70 px-4 py-6 md:px-8 md:py-10 rounded-2xl shadow-xl w-full"
+        style={{
+          boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+        }}
       >
-        <div className="px-5 py-8 md:p-10 flex flex-col gap-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-neutral-100 via-neutral-300 to-neutral-500">
-            Let's Build Something Amazing Together
-          </h2>
-          <p className="text-base md:text-lg text-neutral-300 font-normal">
-            Have a project in mind or an interesting opportunity? I'd love to hear from you. Fill in your details below!
-          </p>
-
-          <form className="mt-2 flex flex-col gap-6" onSubmit={handleSubmit}>
-            <div className="flex flex-col md:flex-row gap-4">
-              <LabelInputContainer>
-                <Label htmlFor="firstname">First name</Label>
-                <Input id="firstname" placeholder="Harish" type="text" required />
-              </LabelInputContainer>
-              <LabelInputContainer>
-                <Label htmlFor="lastname">Last name</Label>
-                <Input id="lastname" placeholder="Chouhan" type="text" required />
-              </LabelInputContainer>
-            </div>
-
+        <h2 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-neutral-200 to-neutral-500 mb-2">
+          Let's Build Something Amazing Together
+        </h2>
+        <form className="w-full mt-3" onSubmit={handleSubmit}>
+          <div className="flex flex-col md:flex-row w-full gap-4 mb-4">
             <LabelInputContainer>
-              <Label htmlFor="email">Email Address</Label>
+              <Label htmlFor="firstname">First Name</Label>
+              <Input id="firstname" placeholder="First Name" type="text" required />
+            </LabelInputContainer>
+            <LabelInputContainer>
+              <Label htmlFor="lastname">Last Name</Label>
+              <Input id="lastname" placeholder="Last Name" type="text" required />
+            </LabelInputContainer>
+          </div>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              id="email"
+              placeholder="imharry@example.com"
+              type="email"
+              required
+            />
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="message">Project Description</Label>
+            <textarea
+              id="message"
+              placeholder="Tell me about your project, goals, and what you're looking to achieve."
+              className="flex h-32 w-full resize-none rounded-md border border-neutral-800 bg-neutral-950/80 px-3 py-2 text-sm text-neutral-200 placeholder:text-neutral-600 outline-none focus:shadow focus:border-neutral-800 focus:bg-neutral-950"
+              required
+            ></textarea>
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-8">
+            <Label htmlFor="file-upload">Attach a Project Brief (PDF)</Label>
+            <div className="relative">
+              <label
+                htmlFor="file-upload"
+                className="flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950/80 px-4 text-sm font-medium text-neutral-300 hover:bg-neutral-900 transition"
+              >
+                <IconFileDescription className="h-4 w-4" />
+                <span>{selectedFile ? selectedFile.name : "Choose File (.pdf)"}</span>
+              </label>
               <Input
-                id="email"
-                placeholder="project.inquiry@example.com"
-                type="email"
-                required
+                id="file-upload"
+                onChange={handleFileChange}
+                type="file"
+                className="hidden"
+                accept=".pdf"
               />
-            </LabelInputContainer>
-
-            <LabelInputContainer>
-              <Label htmlFor="message">Project Description</Label>
-              <textarea
-                id="message"
-                placeholder="Tell me about your project, goals, and what you're looking to achieve."
-                className="flex min-h-[96px] md:min-h-[130px] w-full resize-none rounded-xl border border-neutral-800/40 bg-neutral-950/80 px-4 py-3 text-base text-neutral-200 placeholder:text-neutral-500 shadow-sm transition focus:border-teal-500 focus:ring-2 focus:ring-teal-600"
-                required
-              ></textarea>
-            </LabelInputContainer>
-
-            <LabelInputContainer>
-              <Label htmlFor="file">Attach a Project Brief (PDF)</Label>
-              <div className="relative">
-                <label
-                  htmlFor="file-upload"
-                  className="flex h-12 w-full cursor-pointer items-center justify-center gap-3 rounded-xl border border-neutral-800/40 bg-neutral-950/70 px-4 text-base font-medium text-neutral-300 shadow-sm hover:border-teal-600 hover:text-white transition"
-                >
-                  <IconFileDescription className="h-5 w-5" />
-                  <span>{selectedFile ? selectedFile.name : "Choose File"}</span>
-                </label>
-                <Input
-                  id="file-upload"
-                  onChange={handleFileChange}
-                  type="file"
-                  className="hidden"
-                  accept=".pdf"
-                />
-              </div>
-            </LabelInputContainer>
-
-            <button
-              className="group/btn relative h-12 w-full rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400 font-semibold text-white text-base shadow-xl transition hover:brightness-110"
-              type="submit"
-            >
-              Send Message →
-              <BottomGradient />
-            </button>
-          </form>
-        </div>
+            </div>
+          </LabelInputContainer>
+          <button
+            className="relative h-10 w-full rounded-md bg-gradient-to-br from-blue-500 to-cyan-500 font-semibold text-white shadow-lg transition hover:brightness-110 overflow-hidden"
+            type="submit"
+          >
+            Send Message →
+            <BottomGradient />
+          </button>
+        </form>
       </div>
     </div>
   );
@@ -115,7 +108,7 @@ const BottomGradient = () => (
 );
 
 const LabelInputContainer = ({ children, className }) => (
-  <div className={cn("flex w-full flex-col gap-2", className)}>{children}</div>
+  <div className={cn("flex w-full flex-col gap-1", className)}>{children}</div>
 );
 
 const Label = React.forwardRef(({ className, ...props }, ref) => (
@@ -134,7 +127,7 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => (
   <input
     type={type}
     className={cn(
-      "flex h-12 w-full rounded-xl border border-neutral-800/40 bg-neutral-950/80 px-4 py-2 text-base text-neutral-200 placeholder:text-neutral-500 shadow-sm transition focus:border-teal-500 focus:ring-2 focus:ring-teal-600",
+      "flex h-10 w-full rounded-md border border-neutral-800 bg-neutral-950/80 px-3 py-2 text-sm text-neutral-200 placeholder:text-neutral-600 outline-none focus:shadow focus:border-neutral-800 focus:bg-neutral-950 transition",
       className
     )}
     ref={ref}
@@ -150,7 +143,7 @@ const IconFileDescription = ({ className, ...props }) => (
     strokeWidth="1.5"
     stroke="currentColor"
     fill="none"
-    className={cn("h-5 w-5", className)}
+    className={cn("h-4 w-4", className)}
     {...props}
   >
     <path stroke="none" d="M0 0h24v24H0z" />
