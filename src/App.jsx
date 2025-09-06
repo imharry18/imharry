@@ -5,6 +5,8 @@ import CurveTextPage from './components/CurveTextPage.jsx';
 import Footer from "./components/Footer.jsx";
 import HomeSection3 from "./components/HomeSection3.jsx";
 import HomeSection4 from "./components/HomeSection4.jsx";
+import PlatformHandleLinksDock from "./components/ui/PlatformHandleLinksDock.jsx"
+
 
 export default function App() {
   const containerRef = useRef(null);

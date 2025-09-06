@@ -35,7 +35,7 @@ const SkillCard = ({ skill }) => {
             style={gradientBarStyle}
           ></div>
         </div>
-        <p className='text-xs md:text-sm text-gray-300'>{skill.mastery}% Mastery</p>
+        <p className='text-xs md:text-sm text-gray-300'>{skill.masteryTag}</p>
       </div>
     </div>
   );

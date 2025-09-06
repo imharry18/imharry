@@ -23,12 +23,6 @@ const Home = () => {
         />
       </div>
       <div className="absolute inset-0 z-1 opacity-20 pointer-events-none">
-        <Orb
-          hoverIntensity={0.2}
-          rotateOnHover={true}
-          hue={0}
-          forceHoverState={false}
-        />
       </div>
       <img
         src={logoTrans}

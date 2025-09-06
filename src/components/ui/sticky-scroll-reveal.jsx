@@ -1,5 +1,5 @@
+// StickyScroll.jsx
 "use client";
-
 import React, { useRef, useState } from "react";
 import {
   useScroll,
@@ -7,36 +7,72 @@ import {
   motion,
   AnimatePresence,
 } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { cn } from "../../lib/utils"; // Ensure path is correct
+import AboutMeCard from "./AboutMeCard.jsx";
+import ContactMeCard from "./ContactMeCard.jsx";
+import AboutMeIntroLeft from "./AboutMeIntroLeft.jsx";
+import ContactMeOutroLeft from "./ContactMeOutroLeft.jsx";
 
-export const StickyScroll = ({ content, contentClassName }) => {
+// Example: content array of middle cards
+const extraCards = [
+  {
+    title: "Skills",
+    description: "React, Next.js, TypeScript, Framer Motion, Tailwind CSS",
+    content: (
+      <div className="text-white text-xl flex flex-col items-center justify-center h-full bg-neutral-900 rounded-2xl p-4">
+        <span className="text-center">Building performant and beautiful web UIs.</span>
+      </div>
+    ),
+    LeftContent: null,
+  },
+  // Add other middle cards here...
+];
+
+export const StickyScroll = ({ content = extraCards, contentClassName }) => {
+  const cards = [
+    {
+      title: "About Me",
+      description: "",
+      content: <AboutMeCard />,
+      LeftContent: <AboutMeIntroLeft />,
+    },
+    ...content.map((card) => ({
+      ...card,
+      LeftContent:
+        card.LeftContent ||
+        (() => (
+          <div className="text-center md:text-left">
+            <h1 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">{card.title}</h1>
+            <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">{card.description}</p>
+          </div>
+        ))(),
+    })),
+    {
+      title: "Contact Me",
+      description: "",
+      content: <ContactMeCard />,
+      LeftContent: <ContactMeOutroLeft />,
+    },
+  ];
+
   const [activeCard, setActiveCard] = useState(0);
   const ref = useRef(null);
-  const cardLength = content.length;
+  const cardLength = cards.length;
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  // Gradients: Welcome + Each Card + Outro
   const gradients = [
-    "#111111", // 0 Welcome
-    "linear-gradient(to top, #10b981, #111111)", // 1 content[0]
-    "linear-gradient(to right, #31B7C2, #7BC393)", // 2 content[1]
-    "linear-gradient(to right, #FD8112, #0085CA)", // 3 content[2]
-    "linear-gradient(115deg, #2c003e 0%, #350068 40%, #7b4397 70%, #f857a6 100%)", // 4 content[3]
-    "linear-gradient(to bottom right, #f97316, #eab308)", // 5 content[4]
-    "linear-gradient(to right, #10b981, #3b82f6)", // 6 content[5]
-    "#111111", // 7 Outro
+    "#111111",
+    "linear-gradient(to bottom right, #31B7C2, #7BC393)",
+    "#111111",
   ];
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const sectionProgress = latest * (cardLength + 2);
-    const currentIndex = Math.min(
-      cardLength + 1,
-      Math.floor(sectionProgress)
-    );
+    const sectionProgress = latest * cardLength;
+    const currentIndex = Math.max(0, Math.min(cardLength - 1, Math.floor(sectionProgress)));
     setActiveCard(currentIndex);
   });
 
@@ -46,91 +82,55 @@ export const StickyScroll = ({ content, contentClassName }) => {
     exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
+  // Determines if box shadow should be shown (middle cards only)
+  const hasShadow = !(activeCard === 0 || activeCard === cards.length - 1);
+
   const contentVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.4 } },
+    hidden: { opacity: 0, boxShadow: "none" },
+    visible: {
+      opacity: 1,
+      boxShadow: hasShadow ? "0 6px 24px 0 rgba(0,0,0,0.18)" : "none",
+      transition: {
+        opacity: { duration: 0.4, ease: "easeInOut" },
+        boxShadow: { delay: 0.4, duration: 0 }
+      },
+    },
+    exit: { opacity: 0, boxShadow: "none", transition: { duration: 0.4, ease: "easeInOut" } },
   };
 
-  // Fixed height: intro + cards + outro
-  const scrollableHeight = `${(cardLength + 2) * 100}vh`;
+  const scrollableHeight = `${cardLength * 100}vh`;
 
   return (
-    <section
-      ref={ref}
-      className="relative w-full bg-[#111111]"
-      style={{ height: scrollableHeight }}
-    >
+    <section ref={ref} className="relative w-full bg-[#111111]" style={{ height: scrollableHeight }}>
       <motion.div
-        className="sticky top-0 z-10 flex h-screen w-full items-center justify-center"
-        animate={{
-          background: gradients[activeCard] || gradients[gradients.length - 1],
-        }}
+        className="sticky top-0 z-10 flex h-screen w-full items-center justify-center p-4"
+        animate={{ background: gradients[activeCard] || "#111111" }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <div className="flex w-full max-w-7xl flex-col items-center justify-between px-6 lg:flex-row md:px-12">
-          {/* Left Text */}
-          <div
-            className="relative flex-1 space-y-6 overflow-hidden"
-            style={{ minHeight: "250px" }}
-          >
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full max-w-7xl mx-auto md:gap-16">
+          {/* Left Content */}
+          <div className="relative flex-1 w-full md:w-1/2" style={{ minHeight: "250px" }}>
             <AnimatePresence mode="wait">
-              {activeCard === 0 ? (
-                <motion.div
-                  key="welcome"
-                  variants={textVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
-                  <h2 className="text-2xl font-bold text-white md:text-4xl">
-                    Welcome
-                  </h2>
-                  <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">
-                    Scroll down to discover cool collaborative features of our
-                    platform!
-                  </p>
-                </motion.div>
-              ) : activeCard === cardLength + 1 ? (
-                <motion.div
-                  key="thats-all"
-                  variants={textVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
-                  <h2 className="text-2xl font-bold text-white md:text-4xl">
-                    That's All!
-                  </h2>
-                  <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">
-                    Continue scrolling to explore the rest of the site.
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key={content[activeCard - 1].title}
-                  variants={textVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                >
-                  <h2 className="text-2xl font-bold text-white md:text-4xl">
-                    {content[activeCard - 1].title}
-                  </h2>
-                  <p className="mt-4 max-w-md text-base text-gray-200 md:text-lg">
-                    {content[activeCard - 1].description}
-                  </p>
-                </motion.div>
-              )}
+              <motion.div
+                key={activeCard}
+                variants={textVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="flex items-center justify-center md:items-start md:justify-start h-full"
+              >
+                {cards[activeCard].LeftContent}
+              </motion.div>
             </AnimatePresence>
           </div>
 
           {/* Right Preview */}
           <div
             className={cn(
-              "mt-10 flex h-72 w-full items-center justify-center overflow-hidden rounded-2xl shadow-xl lg:mt-0 lg:ml-16 lg:h-[500px] lg:w-[500px]",
+              "mt-10 md:mt-0 flex w-full max-w-sm sm:max-w-md md:max-w-none md:w-1/2 h-80 md:h-[500px] items-center justify-center",
               contentClassName
             )}
+            style={{ position: "relative" }}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -139,17 +139,9 @@ export const StickyScroll = ({ content, contentClassName }) => {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="h-full w-full"
+                className="h-full w-full rounded-2xl overflow-hidden"
               >
-                {activeCard > 0 && activeCard < cardLength + 1 ? (
-                  content[activeCard - 1].content
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#111111] text-2xl font-medium text-gray-400">
-                    {activeCard === 0
-                      ? "Sticky Carousel Demo"
-                      : "End of Carousel"}
-                  </div>
-                )}
+                {cards[activeCard].content}
               </motion.div>
             </AnimatePresence>
           </div>
