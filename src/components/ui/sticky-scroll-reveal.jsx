@@ -7,10 +7,9 @@ import {
   motion,
   AnimatePresence,
 } from "framer-motion";
-import { cn } from "../../lib/utils"; // Ensure path is correct
+import { cn } from "../../lib/utils"; // Adjust import if needed
 import AboutMeCard from "./AboutMeCard.jsx";
-import ContactMeCard from "./ContactMeCardRight.jsx";
-import ContactMeOutroLeft from "./ContactMeOutroLeft.jsx";
+import FinalContactPage from "./FinalContactPage.jsx";
 
 // Example middle cards
 const extraCards = [
@@ -19,11 +18,22 @@ const extraCards = [
     description:
       "**Creativity meets technology.** I use **Adobe Photoshop** extensively for image editing, graphic design, and advanced **image manipulation**. From creating digital artwork to retouching and enhancing visuals, Photoshop is my go-to tool for bringing imagination to life.",
     content: (
-      <div className="text-white text-xl flex flex-col items-center justify-center h-full bg-neutral-900 rounded-2xl p-4">
-        <span className="text-center">Visual for Adobe Skills</span>
+      <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-orange-400 via-red-500 to-purple-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-2/3 w-2/3 text-white opacity-90"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 2a10 10 0 00-9.4 12.5c.3.5.1 1.2-.4 1.5s-1.2.1-1.5-.4A12 12 0 1112 0h.5A11.5 11.5 0 0124 11.5v.5A12 12 0 0112 24c-4.4 0-8.3-2.4-10.4-6.1.3-.4.9-.5 1.4-.2s.8.8.5 1.3A10 10 0 1012 2z" />
+          <path d="M13 10a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
       </div>
     ),
-    LeftContent: null,
   },
 ];
 
@@ -31,39 +41,31 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
   const cards = [
     {
       id: "intro",
-      title: "About Me",
-      description: "",
       content: <AboutMeCard />,
-      LeftContent: null,
     },
     ...content.map((card, index) => ({
       ...card,
       id: `content-${index}`,
-      LeftContent:
-        card.LeftContent ||
-        (() => (
-          <div className="text-center md:text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-              {card.title}
-            </h1>
-            <p
-              className="mt-4 max-w-md text-sm sm:text-base md:text-lg text-gray-200"
-              dangerouslySetInnerHTML={{
-                __html: card.description.replace(
-                  /\*\*(.*?)\*\*/g,
-                  '<strong class="text-white">$1</strong>'
-                ),
-              }}
-            />
-          </div>
-        ))(),
+      LeftContent: () => (
+        <div className="w-full text-center md:text-left">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug">
+            {card.title}
+          </h1>
+          <p
+            className="mt-3 sm:mt-4 max-w-xl text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed"
+            dangerouslySetInnerHTML={{
+              __html: card.description.replace(
+                /\*\*(.*?)\*\*/g,
+                '<strong class="text-white font-semibold">$1</strong>'
+              ),
+            }}
+          />
+        </div>
+      ),
     })),
     {
       id: "outro",
-      title: "Contact Me",
-      description: "",
-      content: <ContactMeCard />,
-      LeftContent: <ContactMeOutroLeft />,
+      content: <FinalContactPage />,
     },
   ];
 
@@ -76,7 +78,11 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
     offset: ["start start", "end end"],
   });
 
-  const isContentCardActive = activeCard > 0 && activeCard < cardLength - 1;
+  const backgroundGradients = {
+    content: "linear-gradient(to bottom right, #1CB5E0, #31B7C2, #7BC393)",
+  };
+
+  const isContentCard = activeCard > 0 && activeCard < cardLength - 1;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const sectionProgress = latest * cardLength;
@@ -87,10 +93,18 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
     setActiveCard(currentIndex);
   });
 
-  const scrollableHeight = `${cardLength * 100}vh`;
+  const scrollableHeight = `${cardLength * 120}vh`; // smoother breathing space
 
   // --- Animation Variants ---
-  const introOutroVariants = {
+  const backgroundVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeInOut" },
+    },
+  };
+
+  const mainVariants = {
     initial: { opacity: 0, scale: 1.05 },
     animate: {
       opacity: 1,
@@ -104,19 +118,27 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
     },
   };
 
-  const splitScreenVariants = {
-    container: {
-      initial: { opacity: 0 },
-      animate: { opacity: 1, transition: { duration: 0.5 } },
-      exit: { opacity: 0, transition: { duration: 0.3 } },
+  const textContentVariants = {
+    initial: { opacity: 0, x: -30 },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
     },
-    leftPanel: {
-      initial: { opacity: 0, x: -30 },
-      animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, x: 30, transition: { duration: 0.4, ease: "easeIn" } },
+  };
+
+  const imageContentVariants = {
+    initial: { opacity: 0, scale: 0.95 },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
     },
-    rightPanel: {
-      initial: { opacity: 0, x: 30 },
-      animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.4, ease: "easeIn" },
     },
   };
 
@@ -126,83 +148,83 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
       className="relative w-full bg-[#111111]"
       style={{ height: scrollableHeight }}
     >
-      {/* Foreground Content */}
       <div className="sticky top-0 z-10 flex h-screen w-full items-center justify-center overflow-hidden">
-        <AnimatePresence mode="wait">
-          {/* Intro */}
-          {activeCard === 0 && (
-            <motion.div
-              key="intro"
-              variants={introOutroVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="h-full w-full z-10"
-            >
-              <AboutMeCard />
-            </motion.div>
-          )}
+        {/* Dynamic Background */}
+        <motion.div
+          className="absolute inset-0 z-0"
+          variants={backgroundVariants}
+          animate={isContentCard ? "visible" : "hidden"}
+          style={{ background: backgroundGradients.content }}
+        />
 
-          {/* Content Cards */}
-          {isContentCardActive && (
-            <motion.div
-              key="content-split-view"
-              variants={splitScreenVariants.container}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl mx-auto md:gap-12 p-4 z-10"
-            >
-              {/* Left Panel */}
+        <div className="relative flex w-full h-full items-center justify-center">
+          <AnimatePresence mode="wait">
+            {/* Intro + Outro */}
+            {(activeCard === 0 || activeCard === cardLength - 1) && (
               <motion.div
-                variants={splitScreenVariants.leftPanel}
-                className="relative flex-1 w-full md:w-1/2 mb-6 md:mb-0"
-              >
-                {cards[activeCard].LeftContent}
-              </motion.div>
-
-              {/* Right Panel */}
-              <motion.div
-                variants={splitScreenVariants.rightPanel}
-                className={cn(
-                  "flex-1 w-full md:w-1/2 max-w-[95vw] sm:max-w-md md:max-w-sm lg:max-w-md xl:max-w-lg",
-                  "aspect-[4/3] h-auto flex items-center justify-center",
-                  "rounded-2xl bg-neutral-900 shadow-xl overflow-hidden",
-                  contentClassName
-                )}
+                key={activeCard === 0 ? "intro" : "outro"}
+                variants={mainVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="h-full w-full"
               >
                 {cards[activeCard].content}
               </motion.div>
-            </motion.div>
-          )}
+            )}
 
-          {/* Outro */}
-          {activeCard === cardLength - 1 && (
-            <motion.div
-              key="outro"
-              variants={introOutroVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="h-full w-full flex items-center justify-center z-10"
-            >
-              <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl mx-auto md:gap-12 p-4">
-                <div className="relative flex-1 w-full md:w-1/2 mb-6 md:mb-0">
-                  {cards[activeCard].LeftContent}
+            {/* Middle Cards */}
+            {isContentCard && (
+              <motion.div
+                key="content_wrapper"
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="flex flex-col md:flex-row w-full max-w-7xl mx-auto items-center justify-center md:gap-12 lg:gap-16 px-4 sm:px-6 md:px-8"
+              >
+                {/* Left Panel (Text) */}
+                <div className="w-full md:w-5/12 flex items-center justify-center text-center md:text-left mb-6 md:mb-0">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeCard}
+                      variants={textContentVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      {cards[activeCard].LeftContent &&
+                        cards[activeCard].LeftContent()}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
+
+                {/* Right Panel (Visual) */}
                 <div
                   className={cn(
-                    "flex-1 w-full md:w-1/2 max-w-[95vw] sm:max-w-md md:max-w-sm lg:max-w-md xl:max-w-lg",
-                    "aspect-[4/3] h-auto rounded-2xl bg-neutral-900 shadow-xl overflow-hidden",
+                    "w-full md:w-7/12",
+                    "aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg",
+                    "rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-2xl overflow-hidden",
+                    "flex items-center justify-center",
                     contentClassName
                   )}
                 >
-                  {cards[activeCard].content}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeCard}
+                      variants={imageContentVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                      className="h-full w-full"
+                    >
+                      {cards[activeCard].content}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
