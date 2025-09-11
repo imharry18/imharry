@@ -7,6 +7,7 @@ import {
   IconBrandWhatsapp,
   IconBrandTelegram,
   IconMailFilled,
+  IconBrandLinkedin,
 } from "@tabler/icons-react";
 
 function HomeSectionProjects() {
@@ -41,10 +42,15 @@ function HomeSectionProjects() {
       icon: <IconBrandTelegram className="h-full w-full text-white" />,
       href: "https://t.me/yourusername",
     },
+      {
+    title: "LinkedIn",
+    icon: <IconBrandLinkedin className="h-full w-full text-white" />,
+    href: "https://www.linkedin.com/in/yourusername/",
+  }
   ];
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex  items-center justify-center w-full p-2">
       <FloatingDock
         mobileClassName="translate-y-10"
         items={links.map((item) => ({

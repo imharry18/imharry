@@ -17,18 +17,18 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-2xl rounded-none md:rounded-2xl overflow-hidden">
+    <div className="relative mx-auto w-full max-w-xl h-full rounded-none md:rounded-2xl overflow-hidden">
       {/* Animated vortex background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <VortexUse />
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <VortexUse height="100%" />
       </div>
 
       {/* Contact Form Container */}
       <div
-        className="relative z-10 bg-neutral-950/70 px-4 py-6 md:px-8 md:py-10 rounded-2xl shadow-xl w-full"
+        className="relative z-10  bg-[radial-gradient(circle_at_center,transparent_10%,rgba(10,10,10,0.9)_100%)] x-4 py-6 md:px-8 md:py-10 rounded-2xl shadow-xl w-full"
         style={{
           boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
-          backdropFilter: "blur(10px)",
+          backdropFilter: "blur(6px)",
           WebkitBackdropFilter: "blur(10px)",
         }}
       >
@@ -63,25 +63,7 @@ export default function ContactForm() {
               required
             ></textarea>
           </LabelInputContainer>
-          <LabelInputContainer className="mb-8">
-            <Label htmlFor="file-upload">Attach a Project Brief (PDF)</Label>
-            <div className="relative">
-              <label
-                htmlFor="file-upload"
-                className="flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-neutral-800 bg-neutral-950/80 px-4 text-sm font-medium text-neutral-300 hover:bg-neutral-900 transition"
-              >
-                <IconFileDescription className="h-4 w-4" />
-                <span>{selectedFile ? selectedFile.name : "Choose File (.pdf)"}</span>
-              </label>
-              <Input
-                id="file-upload"
-                onChange={handleFileChange}
-                type="file"
-                className="hidden"
-                accept=".pdf"
-              />
-            </div>
-          </LabelInputContainer>
+
           <button
             className="relative h-10 w-full rounded-md bg-gradient-to-br from-blue-500 to-cyan-500 font-semibold text-white shadow-lg transition hover:brightness-110 overflow-hidden"
             type="submit"

@@ -5,7 +5,7 @@ import CurveTextPage from './components/CurveTextPage.jsx';
 import Footer from "./components/Footer.jsx";
 import HomeSection3 from "./components/HomeSection3.jsx";
 import HomeSection4 from "./components/HomeSection4.jsx";
-import PlatformHandleLinksDock from "./components/ui/PlatformHandleLinksDock.jsx"
+import ContactMePage from "./components/ContactMePage.jsx";
 
 
 export default function App() {
@@ -19,6 +19,7 @@ export default function App() {
           <CurveTextPage />
           <HomeSection3 />
           <HomeSection4 />
+          <ContactMePage />
       </main>
       <Footer />
     </div>
