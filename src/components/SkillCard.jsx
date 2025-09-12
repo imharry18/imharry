@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CanvasRevealEffect } from "./ui/canvas-reveal-effect";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SkillCard = ({ skill }) => {
   const [hovered, setHovered] = useState(false);
+  const cardRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const { left, top, width, height } = card.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / 20;
+    const y = (e.clientY - top - height / 2) / 20;
+    card.style.transform = `perspective(1000px) rotateX(${-y}deg) rotateY(${x}deg) scale3d(1.05, 1.05, 1.05)`;
+  };
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current;
+    if (card) {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    }
+  };
 
   const gradientBarStyle = {
     width: `${skill.mastery}%`,
@@ -12,24 +29,28 @@ const SkillCard = ({ skill }) => {
 
   return (
     <div
+      ref={cardRef}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative cursor-pointer bg-[#1a1a1a]/90 rounded-2xl shadow-lg transition-all duration-300 overflow-hidden h-full group"
-      style={{ minHeight: '100px' }} 
+      onMouseLeave={() => {
+        setHovered(false);
+        handleMouseLeave();
+      }}
+      onMouseMove={handleMouseMove}
+      className="relative cursor-pointer bg-[#1a1a1a]/90 rounded-2xl shadow-lg transition-transform duration-300 ease-out h-full"
+      style={{ transformStyle: 'preserve-3d', minHeight: '100px' }}
     >
-      {/* This container holds the content and prevents shifting */}
       <div className="relative z-10 flex items-center space-x-4 p-3 h-full">
-        <motion.img
+        <img
           src={skill.logo}
           alt={`${skill.skillName} logo`}
-          className="w-12 h-12 object-contain flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+          className="w-12 h-12 object-contain flex-shrink-0"
         />
         <div className='flex-1 flex flex-col'>
           <h3 className='text-lg font-semibold text-white'>{skill.skillName}</h3>
           <p className='text-xs italic text-gray-400'>{skill.category}</p>
           <div className='w-full bg-gray-700 rounded-full h-1.5 mt-1.5 mb-1'>
             <div
-              className="h-full rounded-full transition-all duration-500 ease-out"
+              className="h-full rounded-full"
               style={gradientBarStyle}
             ></div>
           </div>
@@ -37,7 +58,6 @@ const SkillCard = ({ skill }) => {
         </div>
       </div>
 
-      {/* The CanvasRevealEffect is now guaranteed not to affect the layout */}
       <AnimatePresence>
         {hovered && (
           <motion.div
