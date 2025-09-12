@@ -3,6 +3,7 @@ import skillsData from "../data/skills.json";
 import { StarsBackground } from "./ui/stars-background";
 import { ShootingStars } from "./ui/shooting-stars";
 import SkillCard from "./SkillCard.jsx";
+import { motion } from "framer-motion";
 
 const HomeSection3 = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -16,27 +17,61 @@ const HomeSection3 = () => {
     return skill.category === activeCategory;
   });
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className='relative min-h-screen bg-gradient-to-b from-[#0f0f0f] to-[#111111] text-white p-5 md:p-20 flex flex-col items-center font-sans overflow-hidden'>
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <StarsBackground />
         <ShootingStars />
       </div>
-      <h2 className='relative z-10 text-4xl md:text-6xl lg:text-9xl font-bold mb-8 md:mb-12 text-center tracking-tight'>
-        <span className="bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-white">Skills</span>
-      </h2>
+
+      <motion.h2
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className='relative z-10 text-4xl md:text-6xl lg:text-8xl font-bold mb-4 text-center tracking-tight'
+      >
+        <span className="bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-white">
+          My Tech Arsenal
+        </span>
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+        className="relative z-10 text-center text-gray-400 mb-12 max-w-2xl"
+      >
+        A collection of tools and technologies I use to build, create, and innovate.
+      </motion.p>
+
       <ul className='relative z-10 flex justify-center flex-wrap gap-2 md:gap-4 mb-8 md:mb-16'>
         {allCategories.map((category) => (
           <li key={category}>
             <button
               onClick={() => setActiveCategory(category)}
               className={`
-                text-sm sm:text-lg md:text-xl font-medium 
-                px-4 md:px-6 py-2 rounded-full 
+                text-sm sm:text-lg md:text-xl font-medium
+                px-4 md:px-6 py-2 rounded-full
                 transition-all duration-300 ease-in-out
-                ${activeCategory === category 
-                  ? 'bg-white text-[#111111] shadow-lg transform scale-105' 
-                  : 'text-gray-400 hover:text-white hover:scale-105'}
+                ${activeCategory === category
+                  ? 'bg-white text-[#111111] shadow-lg transform scale-105'
+                  : 'text-gray-400 hover:text-white hover:bg-white/10'
+                }
               `}
             >
               {category}
@@ -44,13 +79,22 @@ const HomeSection3 = () => {
           </li>
         ))}
       </ul>
-      <div key={activeCategory} className='relative z-10 w-full max-w-7xl transition-all duration-500 ease-in-out animate-fadeIn'>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-4">
+
+      <motion.div
+        key={activeCategory}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className='relative z-10 w-full max-w-7xl'
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSkills.map((skill, index) => (
-            <SkillCard key={index} skill={skill} />
+            <motion.div key={index} variants={itemVariants}>
+              <SkillCard skill={skill} />
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
