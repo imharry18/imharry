@@ -29,7 +29,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#111111] text-gray-300 font-sans overflow-hidden py-16 px-6 sm:px-8 lg:px-16">
+    <footer className="bg-[#111111] text-gray-300 font-sans overflow-hidden py-16 px-6 sm:px-8 lg:px-16 pt-32 pb-10">
 
       {/* Content Container */}
       <div className="container mx-auto">

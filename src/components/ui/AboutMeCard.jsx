@@ -1,4 +1,6 @@
 import myImageUrl from "../../assets/myOfficial.jpg";
+import { motion } from "framer-motion";
+import { IconChevronDown } from "@tabler/icons-react";
 
 export default function AboutMeCard() {
   return (
@@ -77,6 +79,31 @@ export default function AboutMeCard() {
 
       {/* Bottom grounding fade for contrast */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black via-black/70 to-transparent" />
+      
+      {/* Animated Arrow Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 1.2, // Delay to appear after other animations
+          ease: "easeOut",
+        }}
+        className="absolute bottom-10 z-20"
+      >
+        <motion.div
+          animate={{
+            y: [0, 8, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <IconChevronDown className="h-8 w-8 text-neutral-400" />
+        </motion.div>
+      </motion.div>
 
       {/* Inline keyframes for particles (Corrected) */}
       <style>{`

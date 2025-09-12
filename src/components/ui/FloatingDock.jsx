@@ -16,7 +16,7 @@ export const FloatingDock = ({
 const FloatingDockMobile = ({ items, className }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className={["relative block md:hidden", className].filter(Boolean).join(" ")}>
+    <div className={["pb-3 relative block md:hidden", className].filter(Boolean).join(" ")}>
       <AnimatePresence>
         {open && (
           <motion.div

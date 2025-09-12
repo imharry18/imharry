@@ -7,7 +7,7 @@ export const Vortex = (props) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const animationFrameId = useRef();
-  const particleCount = props.particleCount || 1700;
+  const particleCount = props.particleCount || 700;
   const particlePropCount = 9;
   const particlePropsLength = particleCount * particlePropCount;
   const rangeY = props.rangeY || 100;
@@ -32,8 +32,8 @@ export const Vortex = (props) => {
   const HALF_PI = 0.5 * Math.PI;
   const TAU = 2 * Math.PI;
   const TO_RAD = Math.PI / 180;
-  const rand = n => n * Math.random();
-  const randRange = n => n - rand(2 * n);
+  const rand = (n) => n * Math.random();
+  const randRange = (n) => n - rand(2 * n);
   const fadeInOut = (t, m) => {
     let hm = 0.5 * m;
     return Math.abs(((t + hm) % m) - hm) / hm;
@@ -56,7 +56,6 @@ export const Vortex = (props) => {
 
   const initParticles = () => {
     tick = 0;
-    // simplex = new SimplexNoise();
     particleProps = new Float32Array(particlePropsLength);
 
     for (let i = 0; i < particlePropsLength; i += particlePropCount) {
@@ -96,7 +95,8 @@ export const Vortex = (props) => {
     renderToScreen(canvas, ctx);
 
     animationFrameId.current = window.requestAnimationFrame(() =>
-      draw(canvas, ctx));
+      draw(canvas, ctx)
+    );
   };
 
   const drawParticles = (ctx) => {
@@ -145,17 +145,7 @@ export const Vortex = (props) => {
     (checkBounds(x, y, canvas) || life > ttl) && initParticle(i);
   };
 
-  const drawParticle = (
-    x,
-    y,
-    x2,
-    y2,
-    life,
-    ttl,
-    radius,
-    hue,
-    ctx,
-  ) => {
+  const drawParticle = (x, y, x2, y2, life, ttl, radius, hue, ctx) => {
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineWidth = radius;
@@ -172,23 +162,20 @@ export const Vortex = (props) => {
     return x > canvas.width || x < 0 || y > canvas.height || y < 0;
   };
 
-  const resize = (
-    canvas,
-    ctx,
-  ) => {
-    const { innerWidth, innerHeight } = window;
+  const resize = (canvas, ctx) => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    const { clientWidth, clientHeight } = container;
+
+    canvas.width = clientWidth;
+    canvas.height = clientHeight;
 
     center[0] = 0.5 * canvas.width;
     center[1] = 0.5 * canvas.height;
   };
 
-  const renderGlow = (
-    canvas,
-    ctx,
-  ) => {
+  const renderGlow = (canvas, ctx) => {
     ctx.save();
     ctx.filter = "blur(8px) brightness(200%)";
     ctx.globalCompositeOperation = "lighter";
@@ -202,10 +189,7 @@ export const Vortex = (props) => {
     ctx.restore();
   };
 
-  const renderToScreen = (
-    canvas,
-    ctx,
-  ) => {
+  const renderToScreen = (canvas, ctx) => {
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     ctx.drawImage(canvas, 0, 0);
@@ -224,8 +208,17 @@ export const Vortex = (props) => {
     setup();
     window.addEventListener("resize", handleResize);
 
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(container);
+
     return () => {
       window.removeEventListener("resize", handleResize);
+      if (container) {
+        resizeObserver.unobserve(container);
+      }
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -238,8 +231,9 @@ export const Vortex = (props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         ref={containerRef}
-        className="absolute inset-0 z-0 flex h-full w-full items-center justify-center bg-transparent">
-        <canvas ref={canvasRef}></canvas>
+        className="absolute inset-0 z-0 flex h-full w-full items-center justify-center bg-transparent"
+      >
+        <canvas ref={canvasRef} className="h-full w-full"></canvas>
       </motion.div>
       <div className={cn("relative z-10", props.className)}>
         {props.children}

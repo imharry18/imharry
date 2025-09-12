@@ -7,11 +7,10 @@ import {
   motion,
   AnimatePresence,
 } from "framer-motion";
-import { cn } from "../../lib/utils"; // Adjust import if needed
+import { cn } from "../../lib/utils";
 import AboutMeCard from "./AboutMeCard.jsx";
-import FinalContactPage from "./FinalContactPage.jsx";
+import AboutMeOutroPage from "./AboutMeOutroPage.jsx";
 
-// Example middle cards
 const extraCards = [
   {
     title: "Adobe Creative Cloud",
@@ -39,10 +38,7 @@ const extraCards = [
 
 export const StickyScroll = ({ content = extraCards, contentClassName }) => {
   const cards = [
-    {
-      id: "intro",
-      content: <AboutMeCard />,
-    },
+    { id: "intro", content: <AboutMeCard /> },
     ...content.map((card, index) => ({
       ...card,
       id: `content-${index}`,
@@ -63,10 +59,7 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
         </div>
       ),
     })),
-    {
-      id: "outro",
-      content: <FinalContactPage />,
-    },
+    { id: "outro", content: <AboutMeOutroPage /> },
   ];
 
   const [activeCard, setActiveCard] = useState(0);
@@ -79,7 +72,8 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
   });
 
   const backgroundGradients = {
-    content: "linear-gradient(to bottom right, #1CB5E0, #31B7C2, #7BC393)",
+    content:
+      "radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent 70%)",
   };
 
   const isContentCard = activeCard > 0 && activeCard < cardLength - 1;
@@ -93,19 +87,16 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
     setActiveCard(currentIndex);
   });
 
-  const scrollableHeight = `${cardLength * 120}vh`; // smoother breathing space
+  const scrollableHeight = `${cardLength * 120}vh`;
 
   // --- Animation Variants ---
   const backgroundVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.5, ease: "easeInOut" },
-    },
+    visible: { opacity: 1, transition: { duration: 0.5, ease: "easeInOut" } },
   };
 
   const mainVariants = {
-    initial: { opacity: 0, scale: 1.05 },
+    initial: { opacity: 0, scale: 0.95 },
     animate: {
       opacity: 1,
       scale: 1,
@@ -125,27 +116,27 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
       x: 0,
       transition: { duration: 0.5, ease: "easeOut" },
     },
-    exit: { opacity: 0, x: 30, transition: { duration: 0.4, ease: "easeIn" } },
+    exit: { opacity: 0, x: 30, transition: { duration: 0.3, ease: "easeIn" } },
   };
 
   const imageContentVariants = {
-    initial: { opacity: 0, scale: 0.95 },
+    initial: { opacity: 0, scale: 0.9 },
     animate: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, delay: 0.1, ease: "easeOut" },
     },
     exit: {
       opacity: 0,
-      scale: 0.95,
-      transition: { duration: 0.4, ease: "easeIn" },
+      scale: 0.9,
+      transition: { duration: 0.3, ease: "easeIn" },
     },
   };
 
   return (
     <section
       ref={ref}
-      className="relative w-full bg-[#111111]"
+      className="relative w-full bg-[#111111] isolate"
       style={{ height: scrollableHeight }}
     >
       <div className="sticky top-0 z-10 flex h-screen w-full items-center justify-center overflow-hidden">
@@ -162,7 +153,7 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
             {/* Intro + Outro */}
             {(activeCard === 0 || activeCard === cardLength - 1) && (
               <motion.div
-                key={activeCard === 0 ? "intro" : "outro"}
+                key={cards[activeCard].id}
                 variants={mainVariants}
                 initial="initial"
                 animate="animate"
@@ -173,16 +164,12 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
               </motion.div>
             )}
 
-            {/* Middle Cards */}
+            {/* Content Pages */}
             {isContentCard && (
               <motion.div
                 key="content_wrapper"
-                initial="initial"
-                animate="animate"
-                exit="exit"
                 className="flex flex-col md:flex-row w-full max-w-7xl mx-auto items-center justify-center md:gap-12 lg:gap-16 px-4 sm:px-6 md:px-8"
               >
-                {/* Left Panel (Text) */}
                 <div className="w-full md:w-5/12 flex items-center justify-center text-center md:text-left mb-6 md:mb-0">
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -197,14 +184,9 @@ export const StickyScroll = ({ content = extraCards, contentClassName }) => {
                     </motion.div>
                   </AnimatePresence>
                 </div>
-
-                {/* Right Panel (Visual) */}
                 <div
                   className={cn(
-                    "w-full md:w-7/12",
-                    "aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg",
-                    "rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-2xl overflow-hidden",
-                    "flex items-center justify-center",
+                    "w-full md:w-7/12 aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-2xl bg-neutral-900/60 backdrop-blur-md shadow-2xl overflow-hidden flex items-center justify-center",
                     contentClassName
                   )}
                 >
