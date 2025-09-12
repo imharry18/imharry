@@ -42,7 +42,7 @@ export default function FinalContactPage() {
   };
 
   return (
-    <div className="relative flex h-full w-full flex-col items-center justify-center p-4 bg-[#111111] overflow-y-auto">
+    <div className="relative flex h-full w-full flex-col items-center justify-center p-4 bg-[#111111]">
       
       {/* --- Main Content Layout --- */}
       <div className="relative z-10 flex flex-col md:flex-row w-full max-w-6xl items-center justify-center gap-8 md:gap-16 mt-16 md:mt-0">
