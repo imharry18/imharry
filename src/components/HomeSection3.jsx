@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import skillsData from "../data/skills.json";
-import { StarsBackground } from "./ui/stars-background";
-import { ShootingStars } from "./ui/shooting-stars";
+import { StarsBackground } from "./ui/stars-background.jsx";
+import { ShootingStars } from "./ui/shooting-stars.jsx";
 import SkillCard from "./SkillCard.jsx";
 import { motion } from "framer-motion";
 

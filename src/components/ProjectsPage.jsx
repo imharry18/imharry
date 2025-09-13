@@ -3,7 +3,7 @@ import ProjectShow from "./ui/ProjectShow.jsx";
 
 const ProjectsPage = () => {
   return (
-    <main className="bg-white">
+    <main className="bg-[#111111]">
       <ProjectShow />
     </main>
   );

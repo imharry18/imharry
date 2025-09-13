@@ -5,7 +5,7 @@ import { ExternalLink, Github, Info, X } from "lucide-react";
 
 // --- Mock Data ---
 // To prevent file path errors, project data is included directly in the component.
-import Projects from "../../data/projects"; // Ensure this path is correct or replace with inline data if necessary.
+import Projects from "../../data/Projects.json"; // Ensure this path is correct or replace with inline data if necessary.
 // --- Responsive Hook ---
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);

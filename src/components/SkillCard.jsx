@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { CanvasRevealEffect } from "./ui/canvas-reveal-effect";
+import { CanvasRevealEffect } from "./ui/canvas-reveal-effect.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SkillCard = ({ skill }) => {

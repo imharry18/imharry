@@ -7,7 +7,7 @@ import {
   motion,
   AnimatePresence,
 } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { cn } from "../../lib/utils.ts";
 import AboutMeCard from "./AboutMeCard.jsx";
 import AboutMeOutroPage from "./AboutMeOutroPage.jsx";
 

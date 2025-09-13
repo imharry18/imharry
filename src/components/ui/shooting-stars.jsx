@@ -1,5 +1,5 @@
 "use client";;
-import { cn } from "../../lib/utils";
+import { cn } from "../../lib/utils.ts";
 import React, { useEffect, useState, useRef } from "react";
 
 const getRandomStartPoint = () => {

@@ -2,7 +2,6 @@ import React from "react";
 import sideImage from "../assets/123.png";
 import logoTrans from "../assets/logoTrans.png";
 import LightRays from './ui/LightRays.jsx';
-import Orb from './ui/Orb.jsx';
 "use client";
 
 const Home = () => {

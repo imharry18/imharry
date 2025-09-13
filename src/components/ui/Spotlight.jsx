@@ -1,6 +1,5 @@
 import React from "react";
 import { cn } from "../../lib/utils";
-import CurvedLoop from "./CurvedLoop.jsx"
 export const Spotlight = ({
   className,
   fill

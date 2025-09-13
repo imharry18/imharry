@@ -4,7 +4,7 @@ import React, { useEffect, useState, useId } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { motion, useAnimation } from "framer-motion";
-import { cn } from "../../lib/utils"; // ✅ Removed `.ts`
+import { cn } from "../../lib/utils.ts"; 
 
 export const SparklesCore = ({
   id,
