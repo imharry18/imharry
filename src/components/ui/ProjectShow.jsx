@@ -155,7 +155,9 @@ const ProjectShow = () => {
       <div className="absolute inset-0 -z-10 h-full w-full bg-[#111111]"><div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#3333332e_1px,transparent_1px),linear-gradient(to_bottom,#3333332e_1px,transparent_1px)] bg-[size:14px_24px]"></div></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20 md:mb-32">
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">My Work in Motion</h2>
+          <span className="bg-clip-text text-transparent bg-gradient-to-t from-gray-400 to-white text-4xl md:text-8xl font-bold tracking-tight">
+            My Tech Arsenal
+          </span>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-400">An interactive showcase of my projects. Scroll to see them come to life.</p>
         </div>
         <div className="flex flex-col items-center">
