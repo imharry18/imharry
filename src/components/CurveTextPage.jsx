@@ -6,7 +6,7 @@ import codolioImage from "../assets/Codolio.png";
 
 const CurveText = () => {
   return (
-    <div className=' py-10 space-y-4'>
+    <div className='relative py-10 space-y-4'>
       <CurvedLoop
         marqueeText="Harry ✦ Competitive Programmer ✦ Data Structures ✦ LeetCode ✦ GitHub ✦ Graphics Designing ✦ Adobe Photoshop ✦ Java ✦ Python ✦ GeeksforGeeks ✦"
         textColor="white"
@@ -74,3 +74,4 @@ const CurveText = () => {
 }
 
 export default CurveText;
+
