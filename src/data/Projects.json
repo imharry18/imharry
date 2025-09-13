@@ -4,7 +4,7 @@
     "title": "Portfolio",
     "name": "My Portfolio",
     "description": "The web portfolio about me.",
-    "screenshot": "../src/assets/Portfolio.jpg",
+    "screenshot": "https://preview.redd.it/the-full-gta-vi-reveal-artwork-directly-from-rockstars-v0-dkj530ewih4c1.png?auto=webp&s=8d1a0b9505400799b5783873a5b6eca56022d1d3",
     "gif": "/src/assets/1.jpg",
     "github": "https://github.com/imharry18/imharry",
     "demo": "https://imharry.dev",
