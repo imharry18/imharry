@@ -50,23 +50,10 @@ function HomeSectionProjects() {
   ];
 
   return (
-    <div className="flex  items-center justify-center w-full p-2">
+    <div className="flex items-center justify-center w-full p-2">
       <FloatingDock
         mobileClassName="translate-y-10"
-        items={links.map((item) => ({
-          ...item,
-          icon: (
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center"
-            >
-              {item.icon}
-            </a>
-          ),
-        }))}
-        // New prop for mobile horizontal expansion
+        items={links}
         mobileExpandHorizontal
       />
     </div>

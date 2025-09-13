@@ -171,32 +171,44 @@ export default function Orb({
     const container = ctnDom.current;
     if (!container) return;
 
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    container.appendChild(gl.canvas);
+    let rafId;
+    let renderer;
+    let gl;
+    let mesh;
+    let program;
 
-    const geometry = new Triangle(gl);
-    const program = new Program(gl, {
-      vertex: vert,
-      fragment: frag,
-      uniforms: {
-        iTime: { value: 0 },
-        iResolution: {
-          value: new Vec3(
-            gl.canvas.width,
-            gl.canvas.height,
-            gl.canvas.width / gl.canvas.height
-          ),
-        },
-        hue: { value: hue },
-        hover: { value: 0 },
-        rot: { value: 0 },
-        hoverIntensity: { value: hoverIntensity },
-      },
-    });
+    const initialize = () => {
+        renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+        gl = renderer.gl;
+        gl.clearColor(0, 0, 0, 0);
 
-    const mesh = new Mesh(gl, { geometry, program });
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        container.appendChild(gl.canvas);
+
+        const geometry = new Triangle(gl);
+        program = new Program(gl, {
+            vertex: vert,
+            fragment: frag,
+            uniforms: {
+                iTime: { value: 0 },
+                iResolution: { value: new Vec3(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height) },
+                hue: { value: hue },
+                hover: { value: 0 },
+                rot: { value: 0 },
+                hoverIntensity: { value: hoverIntensity },
+            },
+        });
+
+        mesh = new Mesh(gl, { geometry, program });
+        
+        gl.canvas.addEventListener('webglcontextlost', handleContextLost, false);
+        gl.canvas.addEventListener('webglcontextrestored', handleContextRestored, false);
+
+        resize();
+        rafId = requestAnimationFrame(update);
+    };
 
     function resize() {
       if (!container) return;
@@ -213,7 +225,6 @@ export default function Orb({
       );
     }
     window.addEventListener("resize", resize);
-    resize();
 
     let targetHover = 0;
     let lastTime = 0;
@@ -242,19 +253,13 @@ export default function Orb({
     const handleMouseLeave = () => {
       targetHover = 0;
     };
-
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
-
-    let rafId;
+    
     const update = (t) => {
-      rafId = requestAnimationFrame(update);
       const dt = (t - lastTime) * 0.001;
       lastTime = t;
       program.uniforms.iTime.value = t * 0.001;
       program.uniforms.hue.value = hue;
       program.uniforms.hoverIntensity.value = hoverIntensity;
-
       const effectiveHover = forceHoverState ? 1 : targetHover;
       program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1;
 
@@ -264,18 +269,38 @@ export default function Orb({
       program.uniforms.rot.value = currentRot;
 
       renderer.render({ scene: mesh });
+      rafId = requestAnimationFrame(update);
     };
-    rafId = requestAnimationFrame(update);
+
+    const handleContextLost = (event) => {
+        event.preventDefault();
+        console.warn("WebGL Context Lost.");
+        if(rafId) cancelAnimationFrame(rafId);
+    };
+    
+    const handleContextRestored = () => {
+        console.log("WebGL Context Restored.");
+        initialize();
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mouseleave", handleMouseLeave);
+    initialize();
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
-      container.removeChild(gl.canvas);
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      if (gl && gl.canvas) {
+          gl.canvas.removeEventListener('webglcontextlost', handleContextLost);
+          gl.canvas.removeEventListener('webglcontextrestored', handleContextRestored);
+          if (container && container.contains(gl.canvas)) {
+              container.removeChild(gl.canvas);
+          }
+          gl.getExtension("WEBGL_lose_context")?.loseContext();
+      }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hue, hoverIntensity, rotateOnHover, forceHoverState]);
 
   return <div ref={ctnDom} className="w-full h-full" />;

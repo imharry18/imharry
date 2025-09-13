@@ -2,10 +2,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, Info, X } from "lucide-react";
+import Projects from "../../data/Projects.json";
 
-// --- Mock Data ---
-// To prevent file path errors, project data is included directly in the component.
-import Projects from "../../data/Projects.json"; // Ensure this path is correct or replace with inline data if necessary.
 // --- Responsive Hook ---
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
