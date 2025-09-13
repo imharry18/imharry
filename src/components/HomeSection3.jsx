@@ -50,14 +50,7 @@ const HomeSection3 = () => {
         </span>
       </motion.h2>
 
-      <motion.p
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-        className="relative z-10 text-center text-gray-400 mb-12 max-w-2xl"
-      >
-        A collection of tools and technologies I use to build, create, and innovate.
-      </motion.p>
+
 
       <ul className='relative z-10 flex justify-center flex-wrap gap-2 md:gap-4 mb-8 md:mb-16'>
         {allCategories.map((category) => (

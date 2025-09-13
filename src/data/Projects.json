@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "title": "Portfolio",
+    "name": "My Portfolio",
+    "description": "The web portfolio about me.",
+    "screenshot": "../src/assets/projectsData/portfolio.jpg",
+    "gif": "/src/assets/1.jpg",
+    "github": "https://github.com/imharry18/imharry",
+    "demo": "https://imharry.dev",
+    "techStack": ["React", "Node.js", "Express", "JavaScript"],
+    "level": "Intermediate",
+  "highlights": [
+    "Built a fully responsive portfolio using React with clean and modular architecture",
+    "Integrated Aeternity UI for consistent, elegant, and modern UI components",
+    "Added immersive 3D visual effects using Vanta.js and Three.js for interactive sections",
+    "Deployed the app on Vercel with optimized build settings for fast performance",
+    "Used animations and scroll effects to enhance UX and interactivity"
+  ]
+  },
+  {
+    "id": 2,
+        "title": "CPL",
+    "name": "Campus Premier League - A Auction Website",
+    "description": "A web app for hosting online auctions.",
+    "screenshot": "/src/assets/projectsData/cplauction.jpg",
+    "gif": "/src/assets/2.jpg",
+    "github": "https://github.com/imharry18/CPLCPL-Official",
+    "demo": "https://cpl-official.vercel.app/",
+    "techStack": ["Next.js", "Firebase", "TailwindCSS"],
+    "level": "Intermediate",
+    "highlights": [
+      "Real-time bidding system",
+      "User authentication and profiles",
+      "Responsive design"
+    ]
+  },
+  {
+    "id": 3,
+        "title": "Myntra Clone",
+    "name": "Myntra Clone",
+    "description": "A web app for online shopping.",
+    "screenshot": "/src/assets/projectsData/myntra.jpg",
+    "gif": "/src/assets/3.jpg",
+    "github": "https://github.com/imharry18/Myntra-Clone",
+    "demo": "https://myntra-mu-khaki.vercel.app/",
+    "techStack": ["JavaScript", "CSS", "HTML"],
+    "level": "Beginner",
+    "highlights": [
+      "Product listing with filters",
+      "Shopping cart functionality"
+    ]
+  },
+  {
+    "id": 4,
+        "title": "CricAt",
+    "name": "A Cricket Enthusiast's Hub: First Project",
+    "description": "A web app for cricket fans.",
+    "screenshot": "../src/assets/projectsData/cricat.jpg",
+    "gif": "/src/assets/cricat.jpg",
+    "github": "https://github.com/imharry18/CricAt-Official",
+    "demo": "https://cric-at.vercel.app/",
+    "techStack": ["Next.js", "Node.js"],
+    "level": "Basic",
+    "highlights": [
+      "Live Cricket updates.",
+      "Player statistics and profiles",
+      "Responsive design"
+    ]
+  }
+]

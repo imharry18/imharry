@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Navbar from './components/Navbar.jsx';
 import Home from './components/Home.jsx';
 import CurveTextPage from './components/CurveTextPage.jsx';
@@ -6,20 +6,56 @@ import Footer from "./components/Footer.jsx";
 import HomeSection3 from "./components/HomeSection3.jsx";
 import HomeSection4 from "./components/HomeSection4.jsx";
 import FinalContactPage from "./components/ui/FinalContactPage.jsx";
-
+import ProjectsPage from "./components/ProjectsPage.jsx";
 
 export default function App() {
   const containerRef = useRef(null);
+  const contactRef = useRef(null);
+  const [isContactVisible, setIsContactVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsContactVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.5, // Adjust this value as needed
+      }
+    );
+
+    if (contactRef.current) {
+      observer.observe(contactRef.current);
+    }
+
+    return () => {
+      if (contactRef.current) {
+        observer.unobserve(contactRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="relative bg-[#0f0f0f]">
-      <Navbar />
+      <Navbar isContactVisible={isContactVisible} />
       <main className="pt-18 text-white" ref={containerRef}>
+        <section id="home">
           <Home />
           <CurveTextPage />
+        </section>
+        <section id="skills">
           <HomeSection3 />
+        </section>
+        <section id="projects">
+          <ProjectsPage />
+        </section>
+        <section id="about">
           <HomeSection4 />
+        </section>
+        <section id="contact" ref={contactRef}>
           <FinalContactPage />
+        </section>
       </main>
       <Footer />
     </div>

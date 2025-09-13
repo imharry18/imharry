@@ -10,7 +10,7 @@ const SignatureLogo = () => (
   />
 );
 
-const Navbar = () => {
+const Navbar = ({ isContactVisible }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('Home');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,7 +48,6 @@ const Navbar = () => {
             borderRadius: isScrolled ? '2rem' : '0',
             margin: '0 auto',
             transition: 'width 0.3s ease-in-out, border-radius 0.7s ease-in-out',
-            // Optionally, add box shadow or backdrop filter based on isScrolled
             boxShadow: isScrolled ? '0 4px 32px rgba(0,0,0,0.4)' : 'none',
             backdropFilter: isScrolled ? 'blur(8px)' : 'blur(2px)'
           }}
@@ -82,15 +81,17 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              <a
-                href="#contact"
-                onClick={() => setActiveLink('Contact')}
-                className="hidden md:inline-block bg-white text-black font-semibold px-3 py-1 rounded-xl
+              {!isContactVisible && (
+                <a
+                  href="#contact"
+                  onClick={() => setActiveLink('Contact')}
+                  className="hidden md:inline-block bg-white text-black font-semibold px-3 py-1 rounded-xl
                            transition-transform transform hover:scale-95 hover:bg-white/5
                            content-box border-2 border-transparent hover:border-white hover:text-white"
-              >
-                Contact Me
-              </a>
+                >
+                  Contact Me
+                </a>
+              )}
               <div className="md:hidden">
                 <button onClick={toggleMenu} className="z-50 relative">
                   <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out
@@ -129,15 +130,17 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <a
-          href="#contact"
-          onClick={() => { setActiveLink('Contact'); closeMenu(); }}
-          className="bg-white text-black font-semibold px-8 py-3 rounded-full
+        {!isContactVisible && (
+          <a
+            href="#contact"
+            onClick={() => { setActiveLink('Contact'); closeMenu(); }}
+            className="bg-white text-black font-semibold px-8 py-3 rounded-full
                      transition-transform transform hover:scale-95
                      border-2 border-transparent hover:bg-white/5 hover:border-2 hover:text-white"
-        >
-          Contact Me
-        </a>
+          >
+            Contact Me
+          </a>
+        )}
       </div>
     </>
   );

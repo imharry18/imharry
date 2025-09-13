@@ -1,7 +1,7 @@
 import React from 'react';
 
 // In your project, you would use: import logoTrans from "../assets/logoTrans.png";
-import logoTrans from "../assets/logoTrans.png" // Placeholder for a transparent text image
+import logoTrans from "../assets/logoTrans.png" //
 
 const Logo = () => (
   // The logo in the brand section
@@ -12,19 +12,40 @@ const Footer = () => {
   const footerSections = [
     {
       title: 'Pages',
-      links: ['Home', 'Journey', 'Skills', 'Progress', 'Blog'],
+      links: [
+        { name: 'Home', href: '#home' },
+        { name: 'Skills', href: '#skills' },
+        { name: 'Projects', href: '#projects' },
+        { name: 'About', href: '#projects' }, // Points to projects section as 'about' is there
+      ],
     },
     {
       title: 'Socials',
-      links: ['Instagram', 'LeetCode', 'Twitter', 'LinkedIn', 'Codolio'],
+      links: [
+        { name: "GitHub", href: "https://github.com/imharry18" },
+        { name: "Twitter", href: "https://x.com/imharrry_18" },
+        { name: "Gmail", href: "mailto:iharish0018@gmail.com" },
+        { name: "WhatsApp", href: "https://wa.me/917780988037" },
+        { name: "Telegram", href: "https://t.me/imharry18" },
+        { name: "LinkedIn", href: "https://www.linkedin.com/in/imharry18/" }
+      ],
     },
     {
       title: 'Contact Me',
-      links: ['Email for Collaboration', 'Job Opportunities', 'Freelance Project Requests', 'Open to Internships'],
+      links: [
+        { name: 'Collaboration', href: '#contact' },
+        { name: 'Job Opportunities', href: '#contact' },
+        { name: 'Freelance Projects', href: '#contact' },
+        { name: 'Internships', href: '#contact' },
+      ],
     },
     {
       title: 'Legal',
-      links: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
+      links: [
+        { name: 'Privacy Policy', href: '#' },
+        { name: 'Terms of Service', href: '#' },
+        { name: 'Cookie Policy', href: '#' },
+      ],
     },
   ];
 
@@ -54,9 +75,15 @@ const Footer = () => {
                   <h3 className="font-semibold text-white mb-5">{section.title}</h3>
                   <ul className="space-y-3">
                     {section.links.map((link) => (
-                      <li key={link}>
-                        <a href="#" className="hover:text-white transition-colors duration-300 text-gray-400 text-sm">
-                          {link}
+                      <li key={link.name}>
+                        <a 
+                          href={link.href} 
+                          // Open social links in new tab, but not internal page links
+                          target={link.href.startsWith('http') ? '_blank' : '_self'} 
+                          rel="noopener noreferrer" 
+                          className="hover:text-white transition-colors duration-300 text-gray-400 text-sm"
+                        >
+                          {link.name}
                         </a>
                       </li>
                     ))}

@@ -15,37 +15,37 @@ function HomeSectionProjects() {
     {
       title: "GitHub",
       icon: <IconBrandGithub className="h-full w-full text-white" />,
-      href: "https://github.com/yourusername",
+      href: "https://github.com/imharry18",
     },
     {
       title: "Twitter",
       icon: <IconBrandX className="h-full w-full text-white" />,
-      href: "https://x.com/yourhandle",
+      href: "https://x.com/imharrry_18",
     },
     {
       title: "Gmail",
       icon: <IconMailFilled className="h-full w-full text-white" />,
-      href: "mailto:yourmail@gmail.com",
+      href: "mailto:iharish0018@gmail.com",
     },
     {
       title: "Instagram",
       icon: <IconBrandInstagram className="h-full w-full text-white" />,
-      href: "https://instagram.com/yourusername",
+      href: "https://instagram.com/harish_1.8",
     },
     {
       title: "WhatsApp",
       icon: <IconBrandWhatsapp className="h-full w-full text-white" />,
-      href: "https://wa.me/91xxxxxxxxxx",
+      href: "https://wa.me/917780988037",
     },
     {
       title: "Telegram",
       icon: <IconBrandTelegram className="h-full w-full text-white" />,
-      href: "https://t.me/yourusername",
+      href: "https://t.me/imharry18",
     },
       {
     title: "LinkedIn",
     icon: <IconBrandLinkedin className="h-full w-full text-white" />,
-    href: "https://www.linkedin.com/in/yourusername/",
+    href: "https://www.linkedin.com/in/imharry18/",
   }
   ];
 

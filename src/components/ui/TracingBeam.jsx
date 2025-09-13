@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useTransform, useScroll, useSpring } from "motion/react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 export const TracingBeam = ({
   children,
@@ -105,3 +105,4 @@ export const TracingBeam = ({
     </motion.div>
   );
 };
+export default TracingBeam;
