@@ -11,30 +11,6 @@ import { cn } from "../../lib/utils.ts";
 import AboutMeCard from "./AboutMeCard.jsx";
 import AboutMeOutroPage from "./AboutMeOutroPage.jsx";
 
-const extraCards = [
-  {
-    title: "Adobe Creative Cloud",
-    description:
-      "**Creativity meets technology.** I use **Adobe Photoshop** extensively for image editing, graphic design, and advanced **image manipulation**. From creating digital artwork to retouching and enhancing visuals, Photoshop is my go-to tool for bringing imagination to life.",
-    content: (
-      <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-orange-400 via-red-500 to-purple-600">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-2/3 w-2/3 text-white opacity-90"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 2a10 10 0 00-9.4 12.5c.3.5.1 1.2-.4 1.5s-1.2.1-1.5-.4A12 12 0 1112 0h.5A11.5 11.5 0 0124 11.5v.5A12 12 0 0112 24c-4.4 0-8.3-2.4-10.4-6.1.3-.4.9-.5 1.4-.2s.8.8.5 1.3A10 10 0 1012 2z" />
-          <path d="M13 10a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      </div>
-    ),
-  },
-];
 
 export const StickyScroll = ({ content = extraCards, contentClassName }) => {
   const cards = [
