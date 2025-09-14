@@ -7,6 +7,7 @@ import HomeSection3 from "./components/HomeSection3.jsx";
 import HomeSection4 from "./components/HomeSection4.jsx";
 import FinalContactPage from "./components/ui/FinalContactPage.jsx";
 import ProjectsPage from "./components/ProjectsPage.jsx";
+import LoopLogos from "./components/LoopLogos.jsx";
 
 export default function App() {
   const containerRef = useRef(null);
@@ -44,12 +45,15 @@ export default function App() {
         <section id="home">
           <Home />
           <CurveTextPage />
+          
         </section>
         <section id="skills">
           <HomeSection3 />
+          <LoopLogos />
         </section>
         <section id="projects">
           <ProjectsPage />
+          
         </section>
         <section id="about">
           <HomeSection4 />

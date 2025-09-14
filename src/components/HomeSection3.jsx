@@ -4,6 +4,7 @@ import { StarsBackground } from "./ui/stars-background.jsx";
 import { ShootingStars } from "./ui/shooting-stars.jsx";
 import SkillCard from "./SkillCard.jsx";
 import { motion } from "framer-motion";
+import LogoLoop from "./Effects/logo-loop.jsx";
 
 const HomeSection3 = () => {
   const [activeCategory, setActiveCategory] = useState("All");
