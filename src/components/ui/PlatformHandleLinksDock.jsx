@@ -32,16 +32,6 @@ function HomeSectionProjects() {
       icon: <IconBrandInstagram className="h-full w-full text-white" />,
       href: "https://instagram.com/harish_1.8",
     },
-    {
-      title: "WhatsApp",
-      icon: <IconBrandWhatsapp className="h-full w-full text-white" />,
-      href: "https://wa.me/917780988037",
-    },
-    {
-      title: "Telegram",
-      icon: <IconBrandTelegram className="h-full w-full text-white" />,
-      href: "https://t.me/imharry18",
-    },
       {
     title: "LinkedIn",
     icon: <IconBrandLinkedin className="h-full w-full text-white" />,
