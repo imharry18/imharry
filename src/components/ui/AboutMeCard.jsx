@@ -1,4 +1,4 @@
-import myImageUrl from "../../assets/myOfficial.jpg";
+import myImageUrl from "../../assets/myOfficialDP.jpg";
 import { motion } from "framer-motion";
 import { IconChevronDown } from "@tabler/icons-react";
 

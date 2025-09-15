@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import sideImage from "../assets/123.png";
+import sideImage from "../assets/mine.png";
 import logoTrans from "../assets/logoTrans.png";
 import LightRays from './ui/LightRays.jsx';
 
