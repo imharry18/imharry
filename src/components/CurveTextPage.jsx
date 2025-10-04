@@ -13,7 +13,7 @@ const CurveText = () => {
         speed={0.5}
         curveAmount={10}
         direction="left"
-        className="text-5xl font-syne" 
+        className="text-8xl md:text-6xl lg:text-5xl font-syne"
       />
 
           {/* WOBBLE CARD CODE  */}
