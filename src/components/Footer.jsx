@@ -25,8 +25,6 @@ const Footer = () => {
         { name: "GitHub", href: "https://github.com/imharry18" },
         { name: "Twitter", href: "https://x.com/imharrry_18" },
         { name: "Gmail", href: "mailto:iharish0018@gmail.com" },
-        { name: "WhatsApp", href: "https://wa.me/917780988037" },
-        { name: "Telegram", href: "https://t.me/imharry18" },
         { name: "LinkedIn", href: "https://www.linkedin.com/in/imharry18/" }
       ],
     },
